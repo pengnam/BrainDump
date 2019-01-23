@@ -1,6 +1,6 @@
 # Repository for all my distributed system notes
 
-This repository stores all notes of books or modules I explored under the distributed systems umbrella.
+This repository stores the notes of books or ideas that I explored under the distributed systems umbrella.
 
 ## General Topics
 - Parallel and concurrent programming
@@ -10,5 +10,6 @@ This repository stores all notes of books or modules I explored under the distri
 
 | Books       | Author         | Start  | Notes|
 | ------------- |:-------------:| -----:| ----- |
-| Communicating Sequential Processes | Tony Hoare  | 15/1/19| Used in CS3211 |
+| Communicating Sequential Processes | Tony Hoare  | 15/1/19| Used in CS3211, about parallel and concurrent programming in general |
 |
+3

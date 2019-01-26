@@ -1,0 +1,33 @@
+# Concurrent and Distributed Computing
+
+## Chapter 1: Introduction
+A _parallel_ system consists of multiple processors that communicate with each other using shared memory.
+Parallel processes with multple processors communicate with each other using shared memory.
+
+_Distributed_ systems are computer systems that contain multiple processors connected by a communication network.
+Processors communicate with each other using messages sent over the network.
+These systems are increasingly available because of decrease in prices of the network.
+
+### Comparing parallel and Distributed
+
+Distributed has better scalability, greater modularity, lower cost. However, it is faster
+to update a shared memory location than to send a message to another processor.
+More efficient to get parallelism.
+
+### Design Goals
+
+- Fault Tolerance
+
+- Transparency
+
+- Flexibility
+
+- Scalability
+
+## Chapter 2: Mutual Exclusion Problem
+### Introduction
+When processes share data, it is important to synchronise their access to the data
+so that updates are not lost as a result of concurrent accesses and the data
+sets are not corrupted.
+
+The key idea is that some operations have to be excuted _atomically_ i.e. has a critical section.

@@ -111,3 +111,10 @@ Proof by contradiction: both are stuck outside CS
 
 1) Can't be stuck at the first while loop
 2) Both can't be stuck at the same second while loop
+
+
+## Chapter 3: Semaphores
+### Monitors
+high level object oriented construct for synchronisation in concurrent programming.
+
+It can be viewed as  class with data variables and methods to manipulate the date. Because there exists multiple thread that can access the data, monitors have entry methods to guarantee at most one thread can be executing in any one time.

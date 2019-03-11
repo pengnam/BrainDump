@@ -10,3 +10,12 @@ Before Git invokes a hook, it changes its working directory to either $GIT_DIR i
 pre-commit: invoked before git commit
 
 pre-push: invoked before push (can stop push)
+
+## Git rebase
+git rebase: reapply all commits from current branch to tip of another branch.
+
+Note:
+- These commits are new commits, not identical to previous commits.
+- **Golden rule**: Never rebase a branch shared by others
+
+- If x number of people were working on that branch, and they have their own commits, *each person will have to create a new merge commit after the rebase*.

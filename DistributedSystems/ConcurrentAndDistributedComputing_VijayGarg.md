@@ -118,3 +118,27 @@ Proof by contradiction: both are stuck outside CS
 high level object oriented construct for synchronisation in concurrent programming.
 
 It can be viewed as  class with data variables and methods to manipulate the date. Because there exists multiple thread that can access the data, monitors have entry methods to guarantee at most one thread can be executing in any one time.
+
+
+
+## Chapter 12: Message Ordering
+Synchronous <subset> causally ordered FIFO 5 asynchronous.
+FIFO:
+Causally Ordered:
+
+
+
+Total Ordering for broadcast messages:
+```
+For all messages z and y and all processes P and Q, if z is received at P before y, then y is not received before z at Q.
+```
+
+
+Applications:
+
+Transaction will cause the state machine to transition from one state to another state.
+
+Skeen's Algorithm:
+Are the messages assigned in a running order
+
+##

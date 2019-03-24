@@ -36,3 +36,6 @@ All Keras layers have a number of common methods
 3. `.get_config`: returns a dictionary containing the configuration of the layer
 
 
+input and output tensors can also be retrieved easily. 
+
+

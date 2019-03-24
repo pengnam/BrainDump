@@ -25,6 +25,8 @@ In principle, same as MLP.
 4. Receptive Field
 Receives input from some number of locations in previous layer. In fully connected layer, each neuron receives input from a restricted subarea.
 
+## Convolution
+In mathematics (in particular, functional analysis) convolution is a mathematical operation on two functions (f and g) to produce a third function that expresses how the shape of one is modified by the other.
 ## Architectures
 LeNet
 AlexNet

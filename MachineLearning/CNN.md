@@ -72,3 +72,36 @@ Use network layers to fit a residual mapping instead of directly trying to fit a
 Use layers to fit residual F(x) + x instead of H(x) directly, where x is an output from a previous layer. The intuition is that we are training to decide the additional values in this layer.
 
 One by one conv filter to project the depth down.
+
+
+## Visualisation
+Question:
+What are the intermediate features looking for (intermediate layers)?
+
+
+First layer:
+Visualize Filters
+-> Humans tend to visualize/represent oriented edges, opposing colours.
+(regardless or architecture)
+
+Visualizing weights tend to visualize what the weight is looking for because
+the product of two vectors produces a maximal output.
+
+
+Last Layers:
+Visualise the nearest neighbors to the test set features
+--> The nearest value will be in terms of feature space instead of exact pixels
+
+Use a t-SNE dimensional feature space to compress the dimensions to 2
+Show the clustering of images
+
+
+Intermediate:
+Visualize the activations
+--> Allows you to make guesses about the features detected by each layer.
+
+
+Occlusion:
+Mask part of the image before feeding to CNN, draw heatmap of probability at each mask location.
+
+Retrieving images that maximally activate a neuron

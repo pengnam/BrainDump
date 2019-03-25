@@ -12,15 +12,15 @@ General steps to training:
 
 ## Model Types
 Sequential Model
-Linear stack of layers. 
+Linear stack of layers.
 
 1. Layers
 
-Created by passing into constructor or by adding layers using the `.add` method. 
+Created by passing into constructor or by adding layers using the `.add` method.
 
 2. Specifying the Input Shape
 
-The model needs to know the input shape that it should expect. 
+The model needs to know the input shape that it should expect.
 
 3. Compilation
 
@@ -36,6 +36,19 @@ All Keras layers have a number of common methods
 3. `.get_config`: returns a dictionary containing the configuration of the layer
 
 
-input and output tensors can also be retrieved easily. 
+input and output tensors can also be retrieved easily.
+
+### Batch Normalization
+Batch normalization 
+
+## General steps
+
+1. Preprocessing
+- Standardize image
+i.e. ensure the left, right, top, bottom are cropped to a square, before resizing to a standardized side
+
+-
 
 
+Static == 0(test mode)
+Static == 1(train mode)

@@ -25,6 +25,22 @@ In matrix dfs, REMEMBER to check bounds
 
 Reversing singly linked list
 
+1. Use the parameter to store the previous value, and assign
+2. Use it recursively.
+
+When implementing skipping, must use the .next instead of the node itself.
 
 # General
 1. Off by 1
+2. If there is a valid/invalid state, ask what happens if starting value is valid, invalid
+3. Boolean optimization:
+```
+if not reg and not string:
+  return True
+if not reg
+  return False
+
+
+if not reg:
+  return not String
+```

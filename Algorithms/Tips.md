@@ -19,3 +19,6 @@ return min(string, ''.join(compressed), key=len)
 
 Check if 1 substring is a subset of the other substring
 
+## LinkedList
+Always check if you are removing from the start of the linkedlist (requires reassignment of head ptr)
+

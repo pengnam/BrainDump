@@ -22,3 +22,8 @@ Check if 1 substring is a subset of the other substring
 ## LinkedList
 Always check if you are removing from the start of the linkedlist (requires reassignment of head ptr)
 
+
+## Backtracking
+Be clear that its adding the piece at this position, checking if it works, and continue (in-place, so your helpers should not return the board but continue modifying the same board)
+
+!! Backtracking should be done in-place

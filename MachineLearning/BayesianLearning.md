@@ -22,3 +22,11 @@ Family of simple probabilisitic classifiers based on applying Baye's theorem wit
 ## Possible hypotheses to learn
 1. **maximum a posteriori hypothesis**: maximally probable hypothesis
 2. **maximum likelihood**: likelihood of data given hypothesis
+
+
+## Bayes Optimal Classifier
+Finding the most probable classification given the training data. 
+
+## Gibbs 
+
+Randomly selecting hypothesis based on existing prob distribution, then classifying based on that hypothesis.

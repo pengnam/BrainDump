@@ -30,3 +30,11 @@ Finding the most probable classification given the training data.
 ## Gibbs 
 
 Randomly selecting hypothesis based on existing prob distribution, then classifying based on that hypothesis.
+
+## Naive Bayes
+
+Each instance x is described by a conjugation of input attributes. Target function can take on any value from finite set V. Learner asked to predict target value/classification of new instance. 
+
+Predict target value taht will maximize the probability of classification of this instance.
+
+

@@ -28,6 +28,17 @@ return min(string, ''.join(compressed), key=len)
 
 Check if 1 substring is a subset of the other substring
 
+
+Generating prefix arrays:
+B = [0] * (N+1)
+for i in range(N):
+  B[i+1] = B[i] + A[i]
+
+
+Good tips on monotonic queues:
+https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/discuss/204290/Monotonic-Queue-Summary
+
+
 ## LinkedList
 Always check if you are removing from the start of the linkedlist (requires reassignment of head ptr)
 Consider padding linkedlist with nodes infront (consider ctci sum lists)

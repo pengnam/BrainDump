@@ -2,6 +2,9 @@
 
 This file is to keep track of all mistakes made in my code/problem solving.
 
+## Strings
+Remember that some strings have spaces in them. Upper case, lower case.
+
 ## Trees
 >    def inorder(self, root):
         if root is not None:

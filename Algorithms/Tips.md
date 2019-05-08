@@ -3,7 +3,9 @@
 Ensuring that two values are 1 away from each other
 abs(m-n)
 
-if list is used at any time, always ask what happens if list is empty
+if list is used at any time, always ask what happens if list is:
+  1. Empty/Size 1
+  2. Is increasing/decreasing continuously
 
 Steps:
 1. Give a higher level idea of the solution
@@ -41,7 +43,9 @@ https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/discuss/2042
 
 ## LinkedList
 Always check if you are removing from the start of the linkedlist (requires reassignment of head ptr)
-Consider padding linkedlist with nodes infront (consider ctci sum lists)
+Consider padding linkedlist with nodes infront (consider ctci sum lists, common ancestor)
+
+Common ancestor of linkedlist and trees are similar
 
 
 ## Backtracking
@@ -56,3 +60,7 @@ Binary search appears in funny places. If there is a bounds on the domains to se
 ## Graph 
 If need to do BFS, use a deque()
 Ask if there are duplicates (!) esp. in bst
+
+## Useful Problems:
+
+Reaching Points - work from the back instead of the front

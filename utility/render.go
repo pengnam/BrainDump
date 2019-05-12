@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"gopkg.in/russross/blackfriday.v2"
 )
@@ -21,11 +24,20 @@ func parseFile(fileName string) []byte {
 }
 
 func otherSearchFolder(folderName string) []string {
+	result := []string{}
+	filepath.Walk(folderName, func(path string, _ os.FileInfo, _ error) error {
 
+		if strings.HasSuffix(path, ".md") {
+			result = append(result, path)
+		}
+		return nil
+	})
+	return result
 }
 
+/*
 func searchFolder(folderName string) []string {
-	blackList := []string{".DS_Store", ".git"}
+	blackList := []string{".DS_Store", ".git", "util"}
 	infos, _ := ioutil.ReadDir(folderName)
 	result := make([]string, 0)
 	for _, ele := range infos {
@@ -35,15 +47,17 @@ func searchFolder(folderName string) []string {
 	}
 	return result
 }
+*/
 
 func main() {
 	fmt.Println("Testing")
 	output := parseFile("../README.md")
 	fmt.Println(string(blackfriday.Run(output)))
-	dirs := searchFolder("../")
-	for _, ele := range dirs {
-		searchFolder("../")
+	//searchFolder("../")
 
+	files := otherSearchFolder("../")
+	for _, ele := range files {
+		fmt.Println(ele)
 	}
 
 }

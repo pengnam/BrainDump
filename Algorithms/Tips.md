@@ -7,6 +7,10 @@ if list is used at any time, always ask what happens if list is:
   1. Empty/Size 1
   2. Is increasing/decreasing continuously
 
+In jump game, bounds are quickly surpassed when n=37. Nice to talk about possible integer bounds being surpassed. Python3.7 does not have a bound on its integer. 
+
+Think about the best case time complexity possible given the description of the problem.
+
 Steps:
 1. Give a higher level idea of the solution
 2. Give the expected time complexity
@@ -60,6 +64,9 @@ Binary search appears in funny places. If there is a bounds on the domains to se
 ## Graph 
 If need to do BFS, use a deque()
 Ask if there are duplicates (!) esp. in bst
+
+Preorder traversal of trees are not unique, but preorder traversal of trees where the None nodes are marked with a special character are unique
+
 
 ## Useful Problems:
 

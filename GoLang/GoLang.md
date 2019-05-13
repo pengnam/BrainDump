@@ -46,7 +46,13 @@ Go support methods on struct types.
 ## Interfaces
 
 Named collections of method signatures.
+1. It is a set of methods
+2. It is a type
 
+Core concept in Go's type system: 
+Instead of designing our abstractions in terms of what kind of data it holds, we design abstractons based on what actions our types can execute.
+
+The interface{} type, the empty interface, is the source of much confusion. The interface{} type is the interface that has no methods. Since there is no implements keyword, all types implement at least zero methods, and satisfying an interface is done automatically, all types satisfy the empty interface. That means that if you write a function that takes an interface{} value as a parameter, you can supply that function with any value. 
 
 
 ## Miscellaneous Ideas

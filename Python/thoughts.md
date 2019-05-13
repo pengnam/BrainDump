@@ -20,3 +20,10 @@ Every statement is an executable piece of code
 
 
 2) Protocol orientated language
+
+
+
+
+## Miscellaneous
+
+Python is pass by assignment

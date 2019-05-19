@@ -11,10 +11,13 @@ In jump game, bounds are quickly surpassed when n=37. Nice to talk about possibl
 
 Think about the best case time complexity possible given the description of the problem.
 
+Don't forget about sorting
+
 Steps:
 1. Give a higher level idea of the solution
 2. Give the expected time complexity
 ## Arrays and Strings
+https://en.wikipedia.org/wiki/Suffix_array
 
 Algorithms to consider:
 KMP
@@ -71,3 +74,7 @@ Preorder traversal of trees are not unique, but preorder traversal of trees wher
 ## Useful Problems:
 
 Reaching Points - work from the back instead of the front
+
+
+## About Python
+https://stackoverflow.com/questions/986006/how-do-i-pass-a-variable-by-reference#986145

@@ -7,7 +7,7 @@ if list is used at any time, always ask what happens if list is:
   1. Empty/Size 1
   2. Is increasing/decreasing continuously
 
-In jump game, bounds are quickly surpassed when n=37. Nice to talk about possible integer bounds being surpassed. Python3.7 does not have a bound on its integer. 
+In jump game, bounds are quickly surpassed when n=37. Nice to talk about possible integer bounds being surpassed. Python3.7 does not have a bound on its integer.
 
 Think about the best case time complexity possible given the description of the problem.
 
@@ -64,12 +64,18 @@ Be clear that its adding the piece at this position, checking if it works, and c
 Binary search appears in funny places. If there is a bounds on the domains to search, try binary searching the value and applying some form of verifying algorithm
 
 
-## Graph 
+## Graph
 If need to do BFS, use a deque()
 Ask if there are duplicates (!) esp. in bst
 
 Preorder traversal of trees are not unique, but preorder traversal of trees where the None nodes are marked with a special character are unique
 
+When analysing complexity of graphs (Not trees) , consider edges as well.
+
+## Recursion
+Weaving two sets:
+Use the first element from first set as prefix, recurse.
+Use the first element from second set as prefix, recurse.
 
 ## Useful Problems:
 

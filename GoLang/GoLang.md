@@ -58,3 +58,24 @@ The interface{} type, the empty interface, is the source of much confusion. The 
 ## Miscellaneous Ideas
 - GoLang supports anonymous functions, which can form closures. 
 - 
+Exported, unexported types are determined by whether the first letter is upper case or lower case
+
+
+## Handling Timeouts
+
+SetDeadline:
+Deadlines are not timeouts. Once set they stay in force forever no matter if and how the connection is used.
+Call set deadline before each and every read/write operation.
+
+All timeouts are implemented in terms of deadlines. They *do not* reset every time data is sent or received.
+
+Critical for HTTP server that is exposed to the internet to enforce timeouts on client connections, else slow or disappearing clients might leak file descriptors.
+
+ReadTimeout covers the time from when connection is accepted to when the request body is fully read. Implemented using SetReadDeadline immediately after accept.
+
+
+
+## Useful Links
+
+https://queue.acm.org/detail.cfm?id=2839461
+(*) https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/

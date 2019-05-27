@@ -38,4 +38,25 @@ Asynchronous IO operations do not directly affect the the out and run time, but 
 Block IO flame graphs vs normal IO flame graphs
 
 
+## Working with servers on a large scale
 
+Handling large number of POST requests from millions of endpoints means that the web haner would receive a JSON docment that contain many payloads. 
+
+Solution: worker tier architecture, set-up two different clusters. One for web front-end and another for workers so that we can scale the background work. 
+
+Problem:
+There is no control over the aount of worker threads that golang was spawning and uploading to S3. With 1 millino requests per minute, the code crashed and burned really quickly. 
+
+Solution: 
+Create a buffered channel where we qould queue up jobs and upload them to S3. (Minimized amount of gorountines spawned. 
+
+
+
+http://marcio.io/2015/07/handling-1-million-requests-per-minute-with-golang/
+
+
+## Off-CPU Analysis
+
+<-- Application Request -->
+Application Thread -> syscall -> block --> wakeup --> end
+			| 	on CPU kernel 	|

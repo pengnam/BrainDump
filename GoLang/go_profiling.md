@@ -14,7 +14,18 @@ A Profile is a collection of stack traces showing the call sequences that led to
 # pprof
 pprof operates on data in the profile.proto format. Each file is a collection of samples, where each sample is associated to a point in a location hierachy, one or more numeraic values, and a set of labels. 
 
+# Stack traces
 
+Stack traces at time of allocation: hence, might be for code that is not running anymore, which means functions to blame (for example, a function that frees memory space, is not the same as the function allocating the code)
+
+# alloc_space vs inuse_space
+alloc_space: allocated memory and object counts
+inuse: in-use memory and object counts
+
+Inuse metrics are important in determining the amount of memory being used. 
+Allocations describe the performance/time spent on garbage collection
+
+MemProfile rate records the fraction of memory allocations that are recorded and reported in the memory profile.
 
 Types of profiles:
 1. goroutine: stack traces of all current goroutines
@@ -26,3 +37,7 @@ Types of profiles:
 # Useful links
 https://blog.golang.org/profiling-go-programs
 https://flaviocopes.com/golang-profiling/
+https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/
+
+
+

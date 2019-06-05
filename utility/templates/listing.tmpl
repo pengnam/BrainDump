@@ -27,12 +27,14 @@
         <h1 class="title"></h1>
         <div class="meta"></div>
     </div>
-    <div class="markdown">
+        {{range .}}
+
         <div class="recent-posts section">
-            Recent Posts
+            <h2>{{.Name}}</h2>
         </div>
         <div class="posts">
-        {{range .}}
+        {{range .Files}}
+
         <div class = "post">
             <div class="meta">{{ .Time }}</div>
             <a class="title" href="{{ .Path }}">{{.Title}}</a> | {{.Topic}}
@@ -41,7 +43,7 @@
             </span>
         </div>
         {{end}}
-    </div>
+        {{end}}
     </div>
 </div>
     <div class="footer">

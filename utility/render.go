@@ -43,7 +43,7 @@ func getLastModified(file string) time.Time {
 	return f.ModTime()
 }
 func searchFolder(folderName string) []string {
-	blackList := []string{".DS_Store", ".git", "utility", "build"}
+	blackList := []string{".DS_Store", ".git", "utility", "build", ".gitignore"}
 	infos, _ := ioutil.ReadDir(folderName)
 	result := make([]string, 0)
 	for _, ele := range infos {
@@ -148,7 +148,7 @@ func renderListing(topics []Topic) error {
 		return err
 	}
 
-	writer, err := os.Create("../build/index.html")
+	writer, err := os.Create("../build/listing.html")
 	if err != nil {
 		return err
 	}
@@ -167,6 +167,10 @@ func main() {
 		topics = append(topics, topic)
 	}
 	err := renderIndex(getTopFiles(topics))
+	if err != nil {
+		panic(err)
+	}
+	err = renderListing(topics)
 	if err != nil {
 		panic(err)
 	}

@@ -4,77 +4,172 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path/filepath"
+	"regexp"
+	"sort"
 	"strings"
+	"text/template"
+	"time"
+
+	"./util"
 
 	"gopkg.in/russross/blackfriday.v2"
 )
 
-func contains(s []string, e string) bool {
-	for _, a := range s {
-		if a == e {
-			return true
-		}
-	}
-	return false
-}
-
 type Topic struct {
-	Name string
-	Path string
+	Name  string
+	Files []File
 }
 
-func newTopic(name, path string) Topic {
-	return Topic{name, path}
+func parseMarkdown(filePath string, fileName string, topic string) File {
+
+	return File{topic, strings.TrimSuffix(fileName, ".md"), fileName, parseFileContent(filePath + fileName), getLastModified(filePath + fileName).String(), fileName + ".html"}
 }
 
-func parseMarkdown(fileName string) []byte {
-	return blackfriday.Run(parseFile(fileName))
-}
-func parseFile(fileName string) []byte {
-	bytes, _ := ioutil.ReadFile(fileName)
-	return bytes
-}
-
-func otherSearchFolder(folderName string) []string {
-	result := []string{}
-	filepath.Walk(folderName, func(path string, _ os.FileInfo, _ error) error {
-
-		if strings.HasSuffix(path, ".md") {
-			result = append(result, path)
-		}
-		return nil
-	})
-	return result
+// parseFile parses markdown into HTML and strips the first h1 tag of the html
+func parseFileContent(file string) string {
+	bytes, _ := ioutil.ReadFile(file)
+	re := regexp.MustCompile("<h1>(.*)</h1>")
+	result := blackfriday.Run(bytes)
+	header := re.Find(result)
+	return string(result[len(header):])
 }
 
+// getLastModified returns the date that file was last modified
+func getLastModified(file string) time.Time {
+	f, err := os.Stat(file)
+	if err != nil {
+		panic(err)
+	}
+	return f.ModTime()
+}
 func searchFolder(folderName string) []string {
-	blackList := []string{".DS_Store", ".git", "util"}
+	blackList := []string{".DS_Store", ".git", "utility", "build"}
 	infos, _ := ioutil.ReadDir(folderName)
 	result := make([]string, 0)
 	for _, ele := range infos {
-		if !contains(blackList, ele.Name()) {
+		if !util.Contains(blackList, ele.Name()) {
+			result = append(result, ele.Name())
+		}
+	}
+	return result
+}
+func retrieveMarkdowns(folderName string) []string {
+	infos, _ := ioutil.ReadDir(folderName)
+	result := make([]string, 0)
+	for _, ele := range infos {
+		if strings.HasSuffix(ele.Name(), ".md") {
 			result = append(result, ele.Name())
 		}
 	}
 	return result
 }
 
-func main() {
-	fmt.Println("Testing")
-	//searchFolder("../")
+type File struct {
+	Topic   string
+	Title   string
+	Name    string
+	Content string
+	Time    string
+	Path    string
+}
 
-	folders := searchFolder("../")
-	for _, folder := range folders {
-		fmt.Println(folder)
-		files := otherSearchFolder(folder)
-		for _, ele := range files {
-			fmt.Println(ele)
-			output := parseMarkdown(ele)
-			fmt.Println(string(output))
-		}
+func renderFile(content File) error {
+	fileTmpl := template.New("file")
+	tmpl, err := ioutil.ReadFile("templates/file.tmpl")
+	if err != nil {
+		return err
+	}
+	_, err = fileTmpl.Parse(string(tmpl))
+	if err != nil {
+		return err
 	}
 
+	writer, err := os.Create("../build/" + content.Path)
+	if err != nil {
+		return err
+	}
+	fileTmpl.Execute(writer, content)
+	return nil
+}
+
+func renderIndex(files []File) error {
+	indexTmpl := template.New("index")
+	tmpl, err := ioutil.ReadFile("templates/index.tmpl")
+	if err != nil {
+		return err
+	}
+	_, err = indexTmpl.Parse(string(tmpl))
+	if err != nil {
+		return err
+	}
+
+	writer, err := os.Create("../build/index.html")
+	if err != nil {
+		return err
+	}
+	indexTmpl.Execute(writer, files)
+	return nil
+}
+
+func getTopFiles(topics []Topic) []File {
+	files := []File{}
+	for _, t := range topics {
+		files = append(files, t.Files...)
+	}
+	sort.Slice(files, func(i, j int) bool {
+		return files[i].Time > files[j].Time
+	})
+	return files
+}
+
+func parseFilesInTopic(topic string) Topic {
+	fileNames := retrieveMarkdowns("../" + topic)
+	files := []File{}
+	for _, ele := range fileNames {
+		fmt.Println("../" + topic + "/" + ele)
+		f := parseMarkdown("../"+topic+"/", ele, topic)
+		err := renderFile(f)
+		if err != nil {
+			panic(err)
+		}
+		files = append(files, f)
+	}
+	return Topic{topic, files}
+}
+
+func renderListing(topics []Topic) error {
+	listingsTmpl := template.New("listing")
+	tmpl, err := ioutil.ReadFile("templates/listing.tmpl")
+	if err != nil {
+		return err
+	}
+	_, err = listingsTmpl.Parse(string(tmpl))
+	if err != nil {
+		return err
+	}
+
+	writer, err := os.Create("../build/index.html")
+	if err != nil {
+		return err
+	}
+	listingsTmpl.Execute(writer, topics)
+	return nil
+}
+
+func main() {
+	fmt.Println("Testing")
+
+	folders := searchFolder("../")
+	topics := []Topic{}
+	for _, folder := range folders {
+		fmt.Println(folder)
+		topic := parseFilesInTopic(folder)
+		topics = append(topics, topic)
+	}
+	err := renderIndex(getTopFiles(topics))
+	if err != nil {
+		panic(err)
+	}
 }
 
 /*

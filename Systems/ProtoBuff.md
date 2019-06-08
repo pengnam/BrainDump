@@ -21,3 +21,26 @@ Deals with index server request/response protocol, where hand marshalling/unmars
 
 - Generates serialization and deserialization code for hand parsing.
 - Being used for short-lived RPC 
+
+
+## General Syntax
+
+### Data Types
+- bool
+- int32
+- float
+- double
+- string
+
+### General Structure
+
+message NameOfStructure {
+  dataType nameField = val;
+}
+
+dataType: 1 of above data types
+nameField: name of the field
+val: markers on each element that uniquely identify the unique tag that field uses in the binary encoding
+
+
+

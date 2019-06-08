@@ -15,14 +15,19 @@ import (
 	"gopkg.in/russross/blackfriday.v2"
 )
 
+const (
+	thresholdRecentFiles = 20
+)
+
 type Topic struct {
 	Name  string
 	Files []File
 }
 
 func parseMarkdown(filePath string, fileName string, topic string) File {
+	title := strings.TrimSuffix(fileName, ".md")
 
-	return File{topic, strings.TrimSuffix(fileName, ".md"), fileName, parseFileContent(filePath + fileName), getLastModified(filePath + fileName).String(), fileName + ".html"}
+	return File{topic, title, fileName, parseFileContent(filePath + fileName), getLastModified(filePath + fileName).String(), title + ".html"}
 }
 
 // parseFile parses markdown into HTML and strips the first h1 tag of the html
@@ -42,17 +47,7 @@ func getLastModified(file string) time.Time {
 	}
 	return f.ModTime()
 }
-func searchFolder(folderName string) []string {
-	blackList := []string{".DS_Store", ".git", "utility", "build", ".gitignore"}
-	infos, _ := ioutil.ReadDir(folderName)
-	result := make([]string, 0)
-	for _, ele := range infos {
-		if !util.Contains(blackList, ele.Name()) {
-			result = append(result, ele.Name())
-		}
-	}
-	return result
-}
+
 func retrieveMarkdowns(folderName string) []string {
 	infos, _ := ioutil.ReadDir(folderName)
 	result := make([]string, 0)
@@ -84,7 +79,7 @@ func renderFile(content File) error {
 		return err
 	}
 
-	writer, err := os.Create("../build/" + content.Path)
+	writer, err := os.Create("../build/" + content.Title + ".html")
 	if err != nil {
 		return err
 	}
@@ -119,7 +114,7 @@ func getTopFiles(topics []Topic) []File {
 	sort.Slice(files, func(i, j int) bool {
 		return files[i].Time > files[j].Time
 	})
-	return files
+	return files[:thresholdRecentFiles]
 }
 
 func parseFilesInTopic(topic string) Topic {
@@ -159,7 +154,7 @@ func renderListing(topics []Topic) error {
 func main() {
 	fmt.Println("Testing")
 
-	folders := searchFolder("../")
+	folders := util.SearchFolder("../")
 	topics := []Topic{}
 	for _, folder := range folders {
 		fmt.Println(folder)

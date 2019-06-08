@@ -63,18 +63,44 @@ This creates a problem of double consumption, or broker must keep multiple state
 
 Kafka handles this by ensuring that each partition is consumed by one consumer group at a single moment in time. 
 
-# Client-side assignment protocol
+## Client-side assignment protocol
 
 New consumer relies on a server side coordinator to negotioate the set of consumer processes that form the group
 
 https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Client-side+Assignment+Proposal
 
-# Balancing Load
+## Balancing Load
 Kafka balances the node at 3 different locations
 1. Assignment strategy
 (Look at partition assignment strategy)
 2. Producer level, strategy for selecting partition to store message. 
 3. If consumer processes message for a long time, Kafka thinks partitino is dead and reassign partitions among other consumers. Once the job is done, partitions can be assigned to it again.
 
+## Replication and Synchronization
+Kafka has a data copy algorithm to ensure that Aif leader fails or hangs up, a new leader is elected and message is written. 
+
+In N replicas, 1 replica is the leader replica. Leader replica handles all reads and writes to the partition. Follower passively and regularly copies data from the leader.
+[image](https://pocket-image-cache.com/direct?url=https%3A%2F%2Fcdn-images-1.medium.com%2Fmax%2F1600%2F0*EKINPKA_r9-9ip5k.png&resize=w1408)
+Leader is responsible for maintaining and tracking the status of follower lags in the ISR (In-Sync Replicas) which is a copy sync queue. When producer sends a message to the broker, leader writes message and copies it to all followers. 
+
+Message replicate latency limited by the slowest follower, and it is important to detect slow copies quickly. 
+
+Messages in partition are totally ordered but not between partitions.
+
+## Understanding parameters
+
+request.required.acks:
+1(default): producer sends message after leader successfully received the data in the ISR and is confirmed. If leader is down, it will lose data
+0: producer does not need to wait for confirmation from broker to continue sending the next batch of messages. 
+-1: producer wait for all followers to confirm data sent, but not guarantee data will not be lost. 
+
+
+## Notes about number of partitions
+
+We don't increase the number of partitions to be too large because on failure, the reelectino for broker for the partition Suppose that a broker has a total of 2000 partitions, each with 2 replicas. Roughly, this broker will be the leader for about 1000 partitions. 
+When this broker fails uncleanly, all those 1000 partitions become unavailable at exactly the same time. Suppose that it takes 5 ms to elect a new leader for a single partition. It will take up to 5 seconds to elect the new leader for all 1000 partitions.
+
 ## TO READ:
 Quorums
+
+Kafka server vs zoo keeper in new kafka version

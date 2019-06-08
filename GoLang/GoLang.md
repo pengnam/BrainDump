@@ -73,9 +73,11 @@ Critical for HTTP server that is exposed to the internet to enforce timeouts on 
 
 ReadTimeout covers the time from when connection is accepted to when the request body is fully read. Implemented using SetReadDeadline immediately after accept.
 
-
+## Context Pattern
+Each incoming request is handled as its own goroutine. Request handlers might spawn additional goroutines to access identity specific values but if the request is cancelled or times out, all goroutines working on request should exit quickly. Context package makes it easy to pass request scoped values, cancellation signals, and deadlines available as a context. 
 
 ## Useful Links
 
 https://queue.acm.org/detail.cfm?id=2839461
 (*) https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/
+

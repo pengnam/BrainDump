@@ -3,36 +3,38 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/normalize.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
     <!--
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
     -->
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/site.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
   </head>
 
   <body>
       <div class="container wrapper post">
       <div class="header">
-      <h1 class="site-title">Brain Dump</h1>
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
 
-
-      <nav class="nav">
-          <ul class="flat">
-
-          </ul>
-      </nav>
-    </div>
+              </ul>
+          </nav>
+          </div>
 
     <div class="post-header">
         <h1 class="title"></h1>
         <div class="meta"></div>
     </div>
-    <div class="markdown">
+        {{range .}}
+
         <div class="recent-posts section">
-            Recent Posts
+            <h2>{{.Name}}</h2>
         </div>
         <div class="posts">
-        {{range .}}
+        {{range .Files}}
+
         <div class = "post">
             <div class="meta">{{ .Time }}</div>
             <a class="title" href="{{ .Path }}">{{.Title}}</a> | {{.Topic}}
@@ -41,11 +43,11 @@
             </span>
         </div>
         {{end}}
-    </div>
+        {{end}}
     </div>
 </div>
     <div class="footer">
-      by <a href="https://seanngpengnam.com">Sean Ng</a> | <a href="https://github.com/mmcgrana/gobyexample">source</a> | <a href="https://github.com/mmcgrana/gobyexample#license">license</a>
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
   </div>
   </body>
 </html>

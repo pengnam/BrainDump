@@ -36,3 +36,12 @@ Output pairs do.
 
 ## Data Format
 Hadoop uses google protobuff to specify data format
+
+
+## Formula for calculating number of mappers
+```
+goal_num = mapred.map.tasks
+split_size = max(mapred.min.split.size, block_size)
+split_num = total_size / split_size
+compute_map_num = min(split_num, max(default_num, goal_num))
+```

@@ -76,8 +76,14 @@ ReadTimeout covers the time from when connection is accepted to when the request
 ## Context Pattern
 Each incoming request is handled as its own goroutine. Request handlers might spawn additional goroutines to access identity specific values but if the request is cancelled or times out, all goroutines working on request should exit quickly. Context package makes it easy to pass request scoped values, cancellation signals, and deadlines available as a context. 
 
+## On interfaces and implementing methods
+golang interface method requires pointer receiver
+https://stackoverflow.com/questions/40823315/x-does-not-implement-y-method-has-a-pointer-receiver
+
+
 ## Useful Links
 
 https://queue.acm.org/detail.cfm?id=2839461
 (*) https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/
+
 

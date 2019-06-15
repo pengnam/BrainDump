@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Algorithms</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Mistakes</h1>
+        <div class="meta">Updated at: 2019-05-25 12:26:25.260201114 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>This file is to keep track of all mistakes made in my code/problem solving.</p>
+
+<h2>Strings</h2>
+
+<p>Remember that some strings have spaces in them. Upper case, lower case.</p>
+
+<h2>Trees</h2>
+
+<blockquote>
+<p>def inorder(self, root):
+        if root is not None:
+            for val in self.inorder(root.left):
+                yield val
+            yield root.val
+            for val in self.inorder(root.right):
+                yield val</p>
+</blockquote>
+
+<p>It is often a good idea to use a generator as a generator will yield a more elegant solution. We can use iteration instead of recursion.
+(Problem: Range sum of BST)</p>
+
+<h1>Graph</h1>
+
+<p>Think first about the right representation.
+If dfs traversal is needed, NEVER use matrix representation unless its searching 1 row/col away</p>
+
+<p>In matrix dfs, REMEMBER to check bounds</p>
+
+<h1>LinkedList</h1>
+
+<p>Reversing singly linked list</p>
+
+<ol>
+<li>Use the parameter to store the previous value, and assign</li>
+<li>Use it recursively.</li>
+</ol>
+
+<p>When implementing skipping, must use the .next instead of the node itself.</p>
+
+<h1>General</h1>
+
+<ol>
+<li>Off by 1</li>
+<li>If there is a valid/invalid state, ask what happens if starting value is valid, invalid</li>
+<li>Boolean optimization:
+<code>
+if not reg and not string:
+return True
+if not reg
+return False
+if not reg:
+return not String
+</code></li>
+</ol>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

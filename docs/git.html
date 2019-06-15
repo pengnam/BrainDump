@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Tools</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">git</h1>
+        <div class="meta">Updated at: 2019-05-25 12:26:25.267072304 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Git hooks</h2>
+
+<p>Hooks are programs you can place in a hooks directory to trigger actions at certain points in git’s execution.
+$GIT_DIR/hooks/* (or <code>git config core.hooksPath</code>/*)</p>
+
+<p>Before Git invokes a hook, it changes its working directory to either $GIT_DIR in a bare repository or the root of the working tree in a non-bare repository. An exception are hooks triggered during a push (pre-receive, update, post-receive, post-update, push-to-checkout) which are always executed in $GIT_DIR.</p>
+
+<h3>Common hooks</h3>
+
+<p>pre-commit: invoked before git commit</p>
+
+<p>pre-push: invoked before push (can stop push)</p>
+
+<h2>Git rebase</h2>
+
+<p>git rebase: reapply all commits from current branch to tip of another branch.</p>
+
+<p>Note:
+- These commits are new commits, not identical to previous commits.
+- <strong>Golden rule</strong>: Never rebase a branch shared by others</p>
+
+<ul>
+<li>If x number of people were working on that branch, and they have their own commits, <em>each person will have to create a new merge commit after the rebase</em>.</li>
+</ul>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

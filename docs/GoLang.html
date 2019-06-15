@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>GoLang</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">GoLang</h1>
+        <div class="meta">Updated at: 2019-06-13 15:43:01.551139923 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Basic Syntax Ideas</h2>
+
+<ol>
+<li><p>Uses tokens. There are four classes: identifiers, keywords, operators, punctutation, and literals.</p></li>
+
+<li><p>Uses semicolons as terminators. However, Go programs may omit these semicolons following some rules.</p></li>
+
+<li><p>Common types: ArrayType, StructType, PointerType, FunctionType, SliceType, MapType, ChannelType</p></li>
+
+<li><p>Initialization of variables</p></li>
+</ol>
+
+<ul>
+<li>Types are declared after the variable.</li>
+<li>Variables declared without a corresponding initialization are zero-valued.</li>
+<li>Either var <name> or <name> := can be used to initialize variables</li>
+</ul>
+
+<h2>Packages</h2>
+
+<p>The first statement in a Go source file must be:</p>
+
+<pre><code>package name
+</code></pre>
+
+<h2>Basic Data Strutures</h2>
+
+<ul>
+<li>Slices: Supports append operations</li>
+<li>Arrays: built-in data type</li>
+<li>Map :Associative data type</li>
+</ul>
+
+<h2>Functions</h2>
+
+<p>-support for multiple return values. (and hence, multiple assignment)
+-variadic functions</p>
+
+<h2>Iteration</h2>
+
+<p>for index, ele := range sliceName {}
+for i := 0; i &lt; len(sliceName) ; i++ {}</p>
+
+<h2>Pointers</h2>
+
+<p>Go supports pointers, allowing you to pass references to values and records within your program.</p>
+
+<h2>Structs</h2>
+
+<h2>Methods</h2>
+
+<p>Go support methods on struct types.</p>
+
+<h2>Interfaces</h2>
+
+<p>Named collections of method signatures.
+1. It is a set of methods
+2. It is a type</p>
+
+<p>Core concept in Go&rsquo;s type system:
+Instead of designing our abstractions in terms of what kind of data it holds, we design abstractons based on what actions our types can execute.</p>
+
+<p>The interface{} type, the empty interface, is the source of much confusion. The interface{} type is the interface that has no methods. Since there is no implements keyword, all types implement at least zero methods, and satisfying an interface is done automatically, all types satisfy the empty interface. That means that if you write a function that takes an interface{} value as a parameter, you can supply that function with any value.</p>
+
+<h2>Miscellaneous Ideas</h2>
+
+<ul>
+<li>GoLang supports anonymous functions, which can form closures.</li>
+<li>
+Exported, unexported types are determined by whether the first letter is upper case or lower case</li>
+</ul>
+
+<h2>Handling Timeouts</h2>
+
+<p>SetDeadline:
+Deadlines are not timeouts. Once set they stay in force forever no matter if and how the connection is used.
+Call set deadline before each and every read/write operation.</p>
+
+<p>All timeouts are implemented in terms of deadlines. They <em>do not</em> reset every time data is sent or received.</p>
+
+<p>Critical for HTTP server that is exposed to the internet to enforce timeouts on client connections, else slow or disappearing clients might leak file descriptors.</p>
+
+<p>ReadTimeout covers the time from when connection is accepted to when the request body is fully read. Implemented using SetReadDeadline immediately after accept.</p>
+
+<h2>Context Pattern</h2>
+
+<p>Each incoming request is handled as its own goroutine. Request handlers might spawn additional goroutines to access identity specific values but if the request is cancelled or times out, all goroutines working on request should exit quickly. Context package makes it easy to pass request scoped values, cancellation signals, and deadlines available as a context.</p>
+
+<h2>On interfaces and implementing methods</h2>
+
+<p>golang interface method requires pointer receiver
+<a href="https://stackoverflow.com/questions/40823315/x-does-not-implement-y-method-has-a-pointer-receiver">https://stackoverflow.com/questions/40823315/x-does-not-implement-y-method-has-a-pointer-receiver</a></p>
+
+<h2>Useful Links</h2>
+
+<p><a href="https://queue.acm.org/detail.cfm?id=2839461">https://queue.acm.org/detail.cfm?id=2839461</a>
+(*) <a href="https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/">https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/</a></p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>GoLang</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">dep</h1>
+        <div class="meta">Updated at: 2019-05-31 10:29:30.903115838 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>dep is  a package manager</p>
+
+<h2>Core Concepts</h2>
+
+<p>Dep has a four state system:
+1. Current project source code
+2. Manifest
+3. Lock (contains the dependency graph)
+4. Source code of the dependency itself</p>
+
+<h2>Functional Flow</h2>
+
+<ol>
+<li>Generate Gopkg.lock from project src and Gopkg.toml</li>
+<li>Generate src dependency from gopkg.lock</li>
+</ol>
+
+<p>Add introduces new dependencies into the depgraph
+- which means a new gopkg lock is generated w new dependency
+- or a version constraint is added</p>
+
+<p>Update (confusing)</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

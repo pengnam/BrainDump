@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>DistributedSystems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">ConcurrentAndDistributedComputing_VijayGarg</h1>
+        <div class="meta">Updated at: 2019-05-25 12:26:25.261275308 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Chapter 1: Introduction</h2>
+
+<p>A <em>parallel</em> system consists of multiple processors that communicate with each other using shared memory.
+Parallel processes with multple processors communicate with each other using shared memory.</p>
+
+<p><em>Distributed</em> systems are computer systems that contain multiple processors connected by a communication network.
+Processors communicate with each other using messages sent over the network.
+These systems are increasingly available because of decrease in prices of the network.</p>
+
+<h3>Comparing parallel and Distributed</h3>
+
+<p>Distributed has better scalability, greater modularity, lower cost. However, it is faster
+to update a shared memory location than to send a message to another processor.
+More efficient to get parallelism.</p>
+
+<h3>Design Goals</h3>
+
+<ul>
+<li><p>Fault Tolerance</p></li>
+
+<li><p>Transparency</p></li>
+
+<li><p>Flexibility</p></li>
+
+<li><p>Scalability</p></li>
+</ul>
+
+<h2>Chapter 2: Mutual Exclusion Problem</h2>
+
+<h3>Introduction</h3>
+
+<p>When processes share data, it is important to synchronise their access to the data
+so that updates are not lost as a result of concurrent accesses and the data
+sets are not corrupted.</p>
+
+<p>The key idea is that some operations have to be executed <em>atomically</em> i.e. has a critical section.</p>
+
+<p>The problem of ensuring that a critical section is executed atomically is called the mutual exclusion problem.</p>
+
+<h3>Peterson&rsquo;s Algorithm</h3>
+
+<h4>Attempt 1:</h4>
+
+<p>Use of a open door variable.</p>
+
+<p>Problem:
+The testing and setting of the open door variable is not done <em>atomically</em>.</p>
+
+<h4>Attempt 2:</h4>
+
+<p>Use of a boolean array.</p>
+
+<p>Problem: Can deadlock.</p>
+
+<h4>Attempt 3:</h4>
+
+<p>Use of a turn variable</p>
+
+<p>Problem:
+Setting turn not atomic, does not guarantee ME.</p>
+
+<h4>Final Attempt:</h4>
+
+<h5>Proof for mutual exclusion:</h5>
+
+<p>Lets assume that process 0 has just entered critical section. (T1)
+&ndash;&gt; either wantCS[1] == false or turn == 0</p>
+
+<p>Case 1: wantCS[1] is false</p>
+
+<p>This means that P1 has to be currently  at line 5 or before, and is not currently in CS.
+However, when P1 eventually reaches line 8, turn will be set to 0 and since wantCS[0] is true as P0 is in CS, P1 will stop at line 8.</p>
+
+<p>Hence case 1 is invalidated.</p>
+
+<p>Case 2: turn == 0</p>
+
+<p>When P1 approaches the critical section, it sets turn to 0 after P0 sets turn 1 for turn == 0 at line 8 for P0. However, P1 will hence be kept waiting at line 8 since turn == 0 and wantCS will be true.</p>
+
+<p>QED</p>
+
+<h5>Proof for starvation free:</h5>
+
+<p>Contradiction: Process eventually enters the critical section</p>
+
+<p>#TODO: I&rsquo;m thinking this explanation is not rigorous enough</p>
+
+<p>Case 1: P0 is waiting, P1 is trying to enter</p>
+
+<p>Implies wantCS[1] is true and turn == 1. Hence, P1 will not be kept waiting at line 8.</p>
+
+<p>Case 2: P1 is waiting, P0 is trying to enter <br>
+Symmetric to case 1.</p>
+
+<h5>Proof for progress:</h5>
+
+<p>Contradiction: Neither of the processes can enter critical section.</p>
+
+<p>If P0 is waiting,
+Implies wantCS[1] is true and turn == 1. Hence, P1 will not be kept waiting at line 8.</p>
+
+<p>&hellip;</p>
+
+<h3>Lamport&rsquo;s Bakery Algorithm</h3>
+
+<h4>Proof for mutual Exclusion</h4>
+
+<p>Consider a process that has the smaller process id</p>
+
+<p>Proof by contradiction: both processes are currently in the CS
+<Define smaller/larger process>
+Consider: smaller processes is currently in the CS
+Let j be the index of the larger process.
+This means that there are either number[j] == 0 or the other larger process is smaller than this process.</p>
+
+<p>Since the larger process is assumed to be in CS, number[j] != 0. The larger process is also larger than the smaller process so it can&rsquo;t be true.</p>
+
+<h4>Proof for progress</h4>
+
+<p>Proof by contradiction: both are stuck outside CS</p>
+
+<p>1) Can&rsquo;t be stuck at the first while loop
+2) Both can&rsquo;t be stuck at the same second while loop</p>
+
+<h2>Chapter 3: Semaphores</h2>
+
+<h3>Monitors</h3>
+
+<p>high level object oriented construct for synchronisation in concurrent programming.</p>
+
+<p>It can be viewed as  class with data variables and methods to manipulate the date. Because there exists multiple thread that can access the data, monitors have entry methods to guarantee at most one thread can be executing in any one time.</p>
+
+<h2>Chapter 12: Message Ordering</h2>
+
+<p>Synchronous <subset> causally ordered FIFO 5 asynchronous.
+FIFO:
+Causally Ordered:</p>
+
+<p>Total Ordering for broadcast messages:</p>
+
+<pre><code>For all messages z and y and all processes P and Q, if z is received at P before y, then y is not received before z at Q.
+</code></pre>
+
+<p>Applications:</p>
+
+<p>Transaction will cause the state machine to transition from one state to another state.</p>
+
+<p>Skeen&rsquo;s Algorithm:
+Are the messages assigned in a running order</p>
+
+<p>##</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

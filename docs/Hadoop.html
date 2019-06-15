@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Systems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Hadoop</h1>
+        <div class="meta">Updated at: 2019-06-15 09:54:02.680178675 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>Hadoop streaming allows one to create and run Map/Reduce jobs with any executable or script as the mapper/reducer</p>
+
+<h2>How does streaming work</h2>
+
+<p>Mapper and reducer are executables that read the input from stdin, and emit output to std out.
+<strong>Utility will create a Map/Reduce job, submit job to appropriate cluster, monitor the progress of the job until it completes</strong></p>
+
+<p>Specify executable for mappers, each mapper launches <em>executable as a seperate process</em> when the mapper is initialized. Mapper task runs, converts inputs into lines and feeds lines to stdin of process.</p>
+
+<p>Prefix of line up to first tab character is the key and the rest of the line will be the value.</p>
+
+<p>Each executable is a seperate process, converts key value pairs into lines and feeds the line oriented outputs from the stdout of the process.</p>
+
+<h2>Hadoop Distributed File System (HDFS)</h2>
+
+<p>Distributed file system desgined to run on commodity hardware. Provides high throughput access, POSIX requirements for streaming.</p>
+
+<p>Consists of NameNode that manages the file system Metadata and Datanode that store actual data</p>
+
+<p>NameNode: maintains file system tree and the meta data for all the files and directories present in the system. Two files &ldquo;Namespace image&rdquo; and the &ldquo;Edit Log&rdquo; are used to store metadata information.</p>
+
+<p>DataNode: slaves which reside on each machine in a cluster and provide the actual storage.</p>
+
+<h2>Map Reduce</h2>
+
+<p>Mapper maps input key/value pairs to a set of intermediate key/value pairs.</p>
+
+<p>Transform input records into intermediate records, a given input pair may map to zero or many output pairs. Map reduce spawns zero or many output pairs.</p>
+
+<p>Output pairs do.</p>
+
+<h2>Data Format</h2>
+
+<p>Hadoop uses google protobuff to specify data format</p>
+
+<h2>Formula for calculating number of mappers</h2>
+
+<pre><code>goal_num = mapred.map.tasks
+split_size = max(mapred.min.split.size, block_size)
+split_num = total_size / split_size
+compute_map_num = min(split_num, max(default_num, goal_num))
+</code></pre>
+
+<h2>Overview of Yarn cluster</h2>
+
+<p>YARN cluster is composed of host machines.</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

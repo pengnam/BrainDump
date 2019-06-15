@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Algorithms</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">DP</h1>
+        <div class="meta">Updated at: 2019-05-25 12:26:25.259490819 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>Note that there are two forms of dynamic programming. The first is a bottom-up programming, while the second is top-down programming (often known as memoization).</p>
+
+<p>Try writing a recursive version, and then memoize it. Alternatively, write a
+top-down version of it</p>
+
+<h2>Common Problems</h2>
+
+<ol>
+<li>Longest Common Subsequence (Not contiguous)</li>
+</ol>
+
+<p>If the two last characters match, try 1 + LCS(m-1, n-1)
+If they do not match, try max(LCS(m-1,n), LCS(m, n-1))
+If m == 0 or n == 0, return 0</p>
+
+<p>O(mn)</p>
+
+<ol>
+<li>Longest Palindromic Subsequence
+For a given start and ending vertex i,j</li>
+</ol>
+
+<p>if A[i] == A[j], try 1 + LPS(i-1, j-1), and use value if LPS returns True.
+also, try LPS(i-1, j) and LPS(i, j-1).</p>
+
+<p>O(n^2)
+There is also an O(1) space algorithm.</p>
+
+<p>Note:
+- There also exist an O(n) solution to palindromic subsequence, Manchester algorithm.
+- There is an interesting solution that uses LCS:
+<a href="https://www.techiedelight.com/implement-diff-utility/">https://www.techiedelight.com/implement-diff-utility/</a></p>
+
+<ol>
+<li>Longest Increasing Subsequence (Not continuous)
+Each pass, find the all elements less than it, find the memoized value for each of them, take the maximum.</li>
+</ol>
+
+<p>O(n^2)</p>
+
+<ol>
+<li>0-1 Knapsack</li>
+</ol>
+
+<p>Time: O(nw)</p>
+
+<p>Memo table is n (number of items) * W (maximum weight)</p>
+
+<p>I believe there should be an O(W) table solution.</p>
+
+<ol>
+<li>Subset Sum Problem</li>
+</ol>
+
+<p>Memo table is O(n * sum)</p>
+
+<p>Same as knapsack</p>
+
+<ol>
+<li>Partition Problem</li>
+</ol>
+
+<p>Same as subset sum problem</p>
+
+<ol>
+<li>K partition</li>
+</ol>
+
+<p>Same as subset sum, but now form a k dimensional memo</p>
+
+<ol>
+<li>Rod cutting problem</li>
+</ol>
+
+<p>For rod of length i,
+Try:
+price[j] + rodCut(i-j)</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

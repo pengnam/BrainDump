@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Systems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">leveldb</h1>
+        <div class="meta">Updated at: 2019-05-25 12:56:48.080004744 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>Description:</p>
+
+<p>Fast key-value storage library, provides ordered mapping from string keys to string values.</p>
+
+<p>Keys and values are arbitrary byte arrays.</p>
+
+<p>Data stored sorted by key.</p>
+
+<p>Supports a few basic operations:
+1. Put(key, value)
+2. Get(key)
+3. Delete(key)</p>
+
+<p>Stores keys and values in arbitrary byte arrays, and data is sorted by key. Supports batching writes, forward and backward integration.</p>
+
+<h2>Method of storage</h2>
+
+<p>Sequence of key value pairs in file are stored in sorted ordered and partitioned into a sequence of data blocks. The data blocks are formatted according to the code in block builder, before being optionally compressed.</p>
+
+<h2>General Structure</h2>
+
+<p>General types of blocks:
+1. Data blocks
+2. Meta blocks
+	- Stats meta blocks
+	- Filter meta blocks
+3. Index blocks
+	- One entry per data block</p>
+
+<p>A bunch of data blocks, a bunch a meta blocks.</p>
+
+<p>The metablocks describe one entry for every other meta block where the key is the name of the meta block and the value is a BlockHandle pointing to meta block.</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

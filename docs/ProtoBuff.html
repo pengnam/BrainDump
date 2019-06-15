@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Systems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">ProtoBuff</h1>
+        <div class="meta">Updated at: 2019-06-13 11:42:07.880855869 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Description</h2>
+
+<p>Protocol buffers: language-neutral, platform-neutral, extensible way of serializing structured data for use in communications procols, data storage, and more.</p>
+
+<ul>
+<li>Name-value pairs</li>
+<li>One or more unique numbered pairs</li>
+<li>Specify optional fields, required fields, repeated fields.</li>
+</ul>
+
+<p>Compiler generates data access classes, which provides simple accessors for each field as well as methods to serialize/parse teh whole structure to/from raw bytes.</p>
+
+<p>Running the compiler will generate class called persons.</p>
+
+<h2>General problems that protocol solves</h2>
+
+<p>Deals with index server request/response protocol, where hand marshalling/unmarshalling has to be done.</p>
+
+<ul>
+<li>Generates serialization and deserialization code for hand parsing.</li>
+<li>Being used for short-lived RPC</li>
+</ul>
+
+<h2>General Syntax</h2>
+
+<h3>Data Types</h3>
+
+<ul>
+<li>bool</li>
+<li>int32</li>
+<li>float</li>
+<li>double</li>
+<li>string</li>
+</ul>
+
+<h3>General Structure</h3>
+
+<p>message NameOfStructure {
+  dataType nameField = val;
+}</p>
+
+<p>dataType: 1 of above data types
+nameField: name of the field
+val: markers on each element that uniquely identify the unique tag that field uses in the binary encoding</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

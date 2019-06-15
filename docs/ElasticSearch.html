@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>DistributedSystems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">ElasticSearch</h1>
+        <div class="meta">Updated at: 2019-06-04 09:33:24.569085232 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>Elasticsearch is a distributed RESTful search engine.
+- Search engine where each index has a fully configurable number of shards.
+- Each shard has one or more replicas
+- Read/search operation in replica</p>
+
+<p>Built on top of Lucene</p>
+
+<p>Multi Tenant
+- Support for &gt; 1 index
+- Index level configuration</p>
+
+<p>Set of APIs
+- HTTP RESTful API
+- Native Java API</p>
+
+<p>Document oriented
+- No need for upfront schema definition
+- Schema can be defined for customizing indexing process</p>
+
+<h2>Lucene</h2>
+
+<p>High performance, full-featured text search engine.
+150GB/hour with small RAM requirements (1MB heap)
+About 20%/30% of size</p>
+
+<p>Implements efficient search algorithms, available open source under Apache license</p>
+
+<h2>REading Documents</h2>
+
+<h3>Data replication model</h3>
+
+<p>EAch index is divided into shards, and each shard has multiple copies. Each copy is a replacation group and kepy in sync.</p>
+
+<p>Data replication is based on the primary-backup model, and described well in PacificA paper of microsoft research. Single copy of replication group that acts as primary shard, the other copies are replication shards.</p>
+
+<p>Primary is responsible for replicating operation to other copies.</p>
+
+<h2>Basic write model</h2>
+
+<p>Every indexing is resolved using routing, typically based on document ID.</p>
+
+<h2>Routing</h2>
+
+<p>Routing is controlled using the hash of document ID&rsquo;s value.</p>
+
+<p>For explicit control, value fed into the hash function used by router can be directly specified on a per-operation basis.</p>
+
+<p>When setting up explicit mapping, _routing field can be optionally used to direct the index operation.</p>
+
+<h2>Basic Write Model</h2>
+
+<p>Every indexing operation is resolved to a replication group using routing. (Refer to above). Once replicatino group determined, the operation is forwarded to the primary shard. Primary shard validates the operation and forwards it to the replcias.</p>
+
+<p>List is called in-sync copies and is maintained by the master node.</p>
+
+<p>The primary shard follows this basic flow:</p>
+
+<p>Validate incoming operation and reject it if structurally invalid (Example: have an object field where a number is expected)
+Execute the operation locally i.e. indexing or deleting the relevant document. This will also validate the content of fields and reject if needed (Example: a keyword value is too long for indexing in Lucene).
+Forward the operation to each replica in the current in-sync copies set. If there are multiple replicas, this is done in parallel.
+Once all replicas have successfully performed the operation and responded to the primary, the primary acknowledges the successful completion of the request to the client.</p>
+
+<h2>Write failuer</h2>
+
+<p>In the case that the primary itself fails, node hosting primaru will send message to master. Indexing operation will wait for master to promote one of the copies to be primary.</p>
+
+<h2>Basic Read Model</h2>
+
+<p>When a read request is received by a node, that node is responsible for forwarding it to the nodes that hold the relevant shards, collating the responses, and responding to the client. We call that node the coordinating node for that request. The basic flow is as follows:</p>
+
+<p>Resolve the read requests to the relevant shards. Note that since most searches will be sent to one or more indices, they typically need to read from multiple shards, each representing a different subset of the data.
+Select an active copy of each relevant shard, from the shard replication group. This can be either the primary or a replica. By default, Elasticsearch will simply round robin between the shard copies.
+Send shard level read requests to the selected copies.
+Combine the results and respond. Note that in the case of get by ID look up, only one shard is relevant and this step can be skipped.</p>
+
+<h2>Distributed</h2>
+
+<h3>Wait for active shards</h3>
+
+<p>Indexing oeprations can be configured to wait for a certain nunmber of active shard copies before proceeding with the operation. If the requisite number of active shard copies are not available, then the write operation must wait and retry.</p>
+
+<p>Write operations can work on the primary but fail on the replicated nodes.</p>
+
+<h2>Refresh</h2>
+
+<p>Refresh controls when changes made by the request are made available to search.</p>
+
+<h2>API</h2>
+
+<h2>Search Shars API</h2>
+
+<p>Returns the indices and shareds that a search request would be executed against.</p>
+
+<p>Sequence number and primary term uniquely identify a change.</p>
+
+<p>preference: which shard replicas to execute the search request on. (By default, randomized, between requests)</p>
+
+<p>local: boolean value to indicate whether to read state locally or use master nodes cluster state.</p>
+
+<p>cross-field queries: term centric approach by blending idfs, searches for matches across all fields</p>
+
+<p>BoolQueries:
+A query that matches documents matching boolean combinations of other queries.</p>
+
+<p>Built using 1 or more boolean clauses, which each clause mapping to a typed occurence.</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

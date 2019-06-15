@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>GoLang</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">go_profiling</h1>
+        <div class="meta">Updated at: 2019-05-26 19:43:40.428310171 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>Enable profiling to profile Go code.</p>
+
+<h2>Initial Thoughts</h2>
+
+<p>Computer performance will strongly affect the profiling of Go code. Modern CPUs rely heavily on active thermal management that can affect benchmark results.</p>
+
+<p>The general method of deciphering the expected complexity is for the program to go loop finding.</p>
+
+<h1>Profile</h1>
+
+<p>A Profile is a collection of stack traces showing the call sequences that led to instances of a particular event such as allocation. Packages can create and maintain their profils, most common use is for tracking resources that must be explicity closed.</p>
+
+<h1>pprof</h1>
+
+<p>pprof operates on data in the profile.proto format. Each file is a collection of samples, where each sample is associated to a point in a location hierachy, one or more numeraic values, and a set of labels.</p>
+
+<h1>Stack traces</h1>
+
+<p>Stack traces at time of allocation: hence, might be for code that is not running anymore, which means functions to blame (for example, a function that frees memory space, is not the same as the function allocating the code)</p>
+
+<h1>alloc_space vs inuse_space</h1>
+
+<p>alloc_space: allocated memory and object counts
+inuse: in-use memory and object counts</p>
+
+<p>Inuse metrics are important in determining the amount of memory being used.
+Allocations describe the performance/time spent on garbage collection</p>
+
+<p>MemProfile rate records the fraction of memory allocations that are recorded and reported in the memory profile.</p>
+
+<p>Types of profiles:
+1. goroutine: stack traces of all current goroutines
+2. help: sampling of heap allocation
+3. threadcreate: stack traces that led to the creation of new OS threads
+4. block: stack traces that led to blocking on synchronization primitives
+5. mutex: stack traces of holders of contended mutexes</p>
+
+<h1>Useful links</h1>
+
+<p><a href="https://blog.golang.org/profiling-go-programs">https://blog.golang.org/profiling-go-programs</a>
+<a href="https://flaviocopes.com/golang-profiling/">https://flaviocopes.com/golang-profiling/</a>
+<a href="https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/">https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/</a></p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

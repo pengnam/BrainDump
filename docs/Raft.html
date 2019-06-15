@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>DistributedSystems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Raft</h1>
+        <div class="meta">Updated at: 2019-06-13 11:41:42.39582042 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          cretlivesof.data.com/raft</p>
+
+<p>PAxos is a family of protocols.</p>
+
+<p>Check lamport&rsquo;s website.</p>
+
+<h1>Paxos</h1>
+
+<p>Can be decomposed to relatively simple subproblems.</p>
+
+<ol>
+<li>correctness: under non-byzantine conditions</li>
+<li>available: Any cluster of 5 can tolerate a cluster on 2</li>
+<li>Does not depend on timing</li>
+</ol>
+
+<h2>Subproblems</h2>
+
+<ol>
+<li>Leader election</li>
+<li>Log replication</li>
+<li>Safety</li>
+</ol>
+
+<h2>Leader election</h2>
+
+<p>Roles:
+- Leader: onyl one leader
+Candidate: leader candidates in the election process
+- Follower: Do not send any request, only accespt heartbeat from laeader, except forwarding requests from client to leader</p>
+
+<h3>Changing of roles</h3>
+
+<ol>
+<li>Follower: When meets heartbeat timeout. convert</li>
+</ol>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

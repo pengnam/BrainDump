@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Systems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">systems</h1>
+        <div class="meta">Updated at: 2019-05-26 19:57:40.417388296 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>IOStat</h2>
+
+<p>IOStat is primarily used to decide if disk is or is not a bottleneck.</p>
+
+<h2>Background</h2>
+
+<p>There are different layers in the linux IO subsystem.
+Each layer abstracts out a specific operation.</p>
+
+<p><a href="https://blog.serverfault.com/2010/07/06/777852755/">https://blog.serverfault.com/2010/07/06/777852755/</a></p>
+
+<p>Notable ideas include the fact that there is page caching. Before it writes data to disk it puts in memory, adn before it reads data from disk it checks to see if it is in memory already.</p>
+
+<p>iostat shows requests to the device and not read and write requests from the user space. Table in IOstat is reading below the disk cache.</p>
+
+<p>IOStat can break down the statistics at both the partition levelthen the device level.</p>
+
+<h2>IOStat output</h2>
+
+<p>IO CPU Wait time, device utilization.
+Below disk cache layer, and does not provide information about cache miss hit ratios.</p>
+
+<p>tps: number of IO operations per second
+iowait: CPI metric that measures the percentage of time the CPU is idle while waiting for an IO operation to complete.</p>
+
+<h2>Profiling</h2>
+
+<h3>Profiling I/O</h3>
+
+<p>Kernels usually provide facilities for tracing I/O types. I/O is mostly off CPU time, tracking I/O is a form of off CPU analysis</p>
+
+<p>Note that synchronous IO operations cause application latency, and the resulting flame graph is a direct measurement of</p>
+
+<p>Asynchronous IO operations do not directly affect the the out and run time, but it can affect other calculations.</p>
+
+<p>Block IO flame graphs vs normal IO flame graphs</p>
+
+<h2>Working with servers on a large scale</h2>
+
+<p>Handling large number of POST requests from millions of endpoints means that the web haner would receive a JSON docment that contain many payloads.</p>
+
+<p>Solution: worker tier architecture, set-up two different clusters. One for web front-end and another for workers so that we can scale the background work.</p>
+
+<p>Problem:
+There is no control over the aount of worker threads that golang was spawning and uploading to S3. With 1 millino requests per minute, the code crashed and burned really quickly.</p>
+
+<p>Solution:
+Create a buffered channel where we qould queue up jobs and upload them to S3. (Minimized amount of gorountines spawned.</p>
+
+<p><a href="http://marcio.io/2015/07/handling-1-million-requests-per-minute-with-golang/">http://marcio.io/2015/07/handling-1-million-requests-per-minute-with-golang/</a></p>
+
+<h2>Off-CPU Analysis</h2>
+
+<p>&lt;&ndash; Application Request &ndash;&gt;
+Application Thread -&gt; syscall -&gt; block &ndash;&gt; wakeup &ndash;&gt; end
+			| 	on CPU kernel 	|</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

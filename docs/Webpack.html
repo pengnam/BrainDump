@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>WebProgramming</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Webpack</h1>
+        <div class="meta">Updated at: 2019-05-25 12:26:25.27067147 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Background</h2>
+
+<p>Static module bundler for modern JavaScript applications.
+Internally, it builds a dependency graph that maps every module in project needs and generates one or more bundles.</p>
+
+<p>Write modules that can run in the browser</p>
+
+<h2>WebPack Ideas</h2>
+
+<p>Use javascript parser(babylon) to parse javascript code into an AST.
+Traverse AST to find the modules that a given module depends on, assign given module a unique value. This abstraction of dependencies is an &lsquo;asset&rsquo;.</p>
+
+<p>Combining these assets will allow us to form a dependency graph.</p>
+
+<p>This dependency graph can be used to write a new require function: one that finds the right module to &ldquo;require&rdquo; from.g</p>
+
+<p><a href="https://www.youtube.com/watch?v=Gc9-7PBqOC8">https://www.youtube.com/watch?v=Gc9-7PBqOC8</a></p>
+
+<h2>Core Concepts</h2>
+
+<ol>
+<li>Entry</li>
+<li>Output</li>
+<li>Loaders</li>
+<li>Plugins</li>
+<li>Mode</li>
+<li>Browser Compatibility</li>
+</ol>
+
+<p>ECMAScript modules vs CommonJS modules</p>
+
+<h3>Entry</h3>
+
+<p>Indicates the start point to build the internal dependency graph from.</p>
+
+<h3>Output</h3>
+
+<p>Where to emit bundles (default: ./dist/main.js for main output file and ./dist for any other generated file)</p>
+
+<h3>Loaders</h3>
+
+<p>Webpack only understands javascript/json. Hence, loaders are needed to process other types of files and convert them into valid modules that can be consumed by application.</p>
+
+<h3>Sample Code</h3>
+
+<p><code>
+module.exports = {
+    modern
+}
+</code></p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

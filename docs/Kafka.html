@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>DistributedSystems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Kafka</h1>
+        <div class="meta">Updated at: 2019-06-08 14:24:08.929718467 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Introduction</h2>
+
+<p>Distributed streaming platform that can:
+1. Publish and subscribe to streams of records, similar to a mesage queue.
+2. Store streams of records in a fault tolerate and durable way.
+3. Process streams as they occur.</p>
+
+<p>Used for:
+1. Building real-time streaming applications that reliably get data.
+2. Building real-time streaming applications that transform data.</p>
+
+<h2>Concepts</h2>
+
+<p>Kafka is run as a cluster on one or more servers that can span multiple data centers.
+Kafka cluster stores streams of records in categories called topics</p>
+
+<h2>Distribution</h2>
+
+<p>Each cluster handle a share of the partitions. Each partition is replicated across a number of servers. Each partition has 1 leader and other followers.</p>
+
+<p>Leader handles all read and write request, followers replicate. If leader fails, one of the followers will take over.</p>
+
+<h3>Topics and Logs</h3>
+
+<p>Topic is a category to which records are published. Topics in Kafka are always multi-subscriber: i.e. a topic can have zero, one, or many consumers.</p>
+
+<h2>Kafka as a messaging system</h2>
+
+<ol>
+<li><p>Queueing
+Allows us to divide the processing over multiple consumer instances, which lets us scale processing.</p></li>
+
+<li><p>Publish-subscribe
+record is broadcasted to all consumers</p></li>
+</ol>
+
+<p>Kafka is a generalized notion of stream processing that subsumes batch processing as well as message-driven applications.</p>
+
+<h2>Keys</h2>
+
+<p>Kafka accepts the use of keys. Keys are useful if a strong order for a key is required, or if we require that messages with the same key go to the same parition.</p>
+
+<h2>Cluster</h2>
+
+<p>Cluster typically contains multiple brokers to maintain load balance. Brokers are statemless, and use zookeeper for maintaining cluster state.
+One broker can handle hundreds and thousands of reads and writes per second, with TB of messages.
+ZooKeeper coordinates the brokers</p>
+
+<h2>Principles</h2>
+
+<ol>
+<li>Contains serveral producers, several brokers, several consumers</li>
+<li>Partition is a physical concept, topic is a logical concept.</li>
+</ol>
+
+<ul>
+<li>Each partition append log file at the storage level.</li>
+</ul>
+
+<ol>
+<li>Location of each message is called an offset, offset is a long type number that uniquely identifies a message.</li>
+<li>Kafka&rsquo;s high reliability guaranteed by its high replication.</li>
+<li>Setting partition allow all messages to be evenly distributed to the different partitions, achieving a level of expansion. (Note that writes can be to the tail end of any of the partitions).</li>
+<li>When creating a topic, one can specify the key of the mssage to dertermine the producer send to which partition.</li>
+<li>Each partition uses segments, to ensure that the size of the log can easily expand/contract.</li>
+<li>Each segment consists of a .Index file and a .log file. Index stores metadata.</li>
+</ol>
+
+<h2>Consumer Postion</h2>
+
+<p>Kafka maintains information about messages sent and consumed. (For the instances where messages are sent, package lost, and the consumer ends up time-out or waiting forever).</p>
+
+<p>This creates a problem of double consumption, or broker must keep multiple states about each message.</p>
+
+<p>Kafka handles this by ensuring that each partition is consumed by one consumer group at a single moment in time.</p>
+
+<h2>Client-side assignment protocol</h2>
+
+<p>New consumer relies on a server side coordinator to negotioate the set of consumer processes that form the group</p>
+
+<p><a href="https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Client-side+Assignment+Proposal">https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Client-side+Assignment+Proposal</a></p>
+
+<h2>Balancing Load</h2>
+
+<p>Kafka balances the node at 3 different locations
+1. Assignment strategy
+(Look at partition assignment strategy)
+2. Producer level, strategy for selecting partition to store message.
+3. If consumer processes message for a long time, Kafka thinks partitino is dead and reassign partitions among other consumers. Once the job is done, partitions can be assigned to it again.</p>
+
+<h2>Replication and Synchronization</h2>
+
+<p>Kafka has a data copy algorithm to ensure that Aif leader fails or hangs up, a new leader is elected and message is written.</p>
+
+<p>In N replicas, 1 replica is the leader replica. Leader replica handles all reads and writes to the partition. Follower passively and regularly copies data from the leader.
+<a href="https://pocket-image-cache.com/direct?url=https%3A%2F%2Fcdn-images-1.medium.com%2Fmax%2F1600%2F0*EKINPKA_r9-9ip5k.png&amp;resize=w1408">image</a>
+Leader is responsible for maintaining and tracking the status of follower lags in the ISR (In-Sync Replicas) which is a copy sync queue. When producer sends a message to the broker, leader writes message and copies it to all followers.</p>
+
+<p>Message replicate latency limited by the slowest follower, and it is important to detect slow copies quickly.</p>
+
+<p>Messages in partition are totally ordered but not between partitions.</p>
+
+<h2>Understanding parameters</h2>
+
+<p>request.required.acks:
+1(default): producer sends message after leader successfully received the data in the ISR and is confirmed. If leader is down, it will lose data
+0: producer does not need to wait for confirmation from broker to continue sending the next batch of messages.
+-1: producer wait for all followers to confirm data sent, but not guarantee data will not be lost.</p>
+
+<h2>Notes about number of partitions</h2>
+
+<p>We don&rsquo;t increase the number of partitions to be too large because on failure, the reelectino for broker for the partition Suppose that a broker has a total of 2000 partitions, each with 2 replicas. Roughly, this broker will be the leader for about 1000 partitions.
+When this broker fails uncleanly, all those 1000 partitions become unavailable at exactly the same time. Suppose that it takes 5 ms to elect a new leader for a single partition. It will take up to 5 seconds to elect the new leader for all 1000 partitions.</p>
+
+<h2>TO READ:</h2>
+
+<p>Quorums</p>
+
+<p>Kafka server vs zoo keeper in new kafka version</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>MachineLearning</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">CNN</h1>
+        <div class="meta">Updated at: 2019-05-25 12:26:25.262846636 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          <p>#Convolutional Neural Networks</p>
+
+<h2>Description</h2>
+
+<ul>
+<li>Class of deep neural networks, typically applied to analysing imagery.</li>
+<li>Variation of MLP designed to require minimal preprocessing</li>
+<li>Able to capture spatial and temporal dependencies in an image through application of relevant features</li>
+</ul>
+
+<p>Convolutional layers apply a convolutional operation to the input, passing the result
+to the next layer.</p>
+
+<h2>Layers</h2>
+
+<ol>
+<li>Convolutional
+Each CNN processes data only for its receptive field. Describes the number of features.
+&ndash;&gt; Produces one-depth channel Convoluted Feature Output.</li>
+</ol>
+
+<p>The output after the convolutional layer is calculated by multiplicating the weights in filter with receptive input, and then summing them.</p>
+
+<p>Stride: size of steps
+Padding: padding the edges with 0s</p>
+
+<pre><code>- Parameter sharing
+</code></pre>
+
+<p>Parameter sharing scheme is used in Convolutional Layers to control the number of parameters. Using the real-world example above, we see that there are 55*55*96 = 290,400 neurons in the first Conv Layer, and each has 11*11*3 = 363 weights and 1 bias. Together, this adds up to 290400 * 364 = 105,705,600 parameters on the first layer of the ConvNet alone. Clearly, this number is very high.</p>
+
+<p>It turns out that we can dramatically reduce the number of parameters by making one reasonable assumption: That if one feature is useful to compute at some spatial position (x,y), then it should also be useful to compute at a different position (x2,y2). In other words, denoting a single 2-dimensional slice of depth as a depth slice (e.g. a volume of size [55x55x96] has 96 depth slices, each of size [55x55]), we are going to constrain the neurons in each depth slice to use the same weights and bias. With this parameter sharing scheme, the first Conv Layer in our example would now have only 96 unique set of weights (one for each depth slice), for a total of 96*11*11*3 = 34,848 unique weights, or 34,944 parameters (+96 biases). Alternatively, all 55*55 neurons in each depth slice will now be using the same parameters. In practice during backpropagation, every neuron in the volume will compute the gradient for its weights, but these gradients will be added up across each depth slice and only update a single set of weights per slice.</p>
+
+<p>Notice that the parameter sharing assumption is relatively reasonable: If detecting a horizontal edge is important at some location in the image, it should intuitively be useful at some other location as well due to the translationally-invariant structure of images. There is therefore no need to relearn to detect a horizontal edge at every one of the 55*55 distinct locations in the Conv layer output volume.</p>
+
+<ol>
+<li><p>Pooling
+Include local or global pooling layers which combine the outputs of neuron clusters
+at one layer into a single neuron in the next layer.
+&ndash;&gt; Two types: max pooling, which is known to discard noisy activations, and also performs denoising, and average pooling, performs dimensionality reduction as a noise suppressing mechanism.</p></li>
+
+<li><p>Fully Connected
+Connect every neuron in one layer to every neuron in another layer.
+In principle, same as MLP.</p></li>
+
+<li><p>Receptive Field
+Receives input from some number of locations in previous layer. In fully connected layer, each neuron receives input from a restricted subarea.</p></li>
+
+<li><p>ReLU
+Applying nonlinear layer introduced nonlinearity to a system. Takes only max.</p></li>
+</ol>
+
+<h2>Convolution</h2>
+
+<p>In mathematics (in particular, functional analysis) convolution is a mathematical operation on two functions (f and g) to produce a third function that expresses how the shape of one is modified by the other.</p>
+
+<h2>Architectures</h2>
+
+<ul>
+<li><p>LeNet:
+Conv filters applied 5x5, stride 1. Subsampling layers were 2*2 applied at stride 2.
+CONV-POOL-CONV-POOL-FC-FC</p></li>
+
+<li><p>AlexNet:
+4 Conv Layers
+Alot of data augmentation
+First time relu was applied</p></li>
+
+<li><p>VGGNet:
+Smaller filters (3x3), deeper networks</p>
+
+<ul>
+<li>Use smaller filters with more depth, and the stack of 3x3 conv layers have the same
+effective receptive field as one 7x7 conv layer</li>
+<li>fewer parameters with a smaller filter, deeper depth</li>
+</ul></li>
+</ul>
+
+<p>GoogLeNet:</p>
+
+<p>ResNet:
+152 layer network</p>
+
+<p>Uses the idea of a residual network.</p>
+
+<p>What happens when you continue stacking deeper layers on a &ldquo;plain&rdquo; convolutional network.</p>
+
+<p>Deeper models do not have an overfitting problem, hence it is likely an optimization problem.</p>
+
+<p>Use network layers to fit a residual mapping instead of directly trying to fit a desired underlying mapping.</p>
+
+<p>Use layers to fit residual F(x) + x instead of H(x) directly, where x is an output from a previous layer. The intuition is that we are training to decide the additional values in this layer.</p>
+
+<p>One by one conv filter to project the depth down.</p>
+
+<h2>Visualisation</h2>
+
+<p>Question:
+What are the intermediate features looking for (intermediate layers)?</p>
+
+<p>First layer:
+Visualize Filters
+-&gt; Humans tend to visualize/represent oriented edges, opposing colours.
+(regardless or architecture)</p>
+
+<p>Visualizing weights tend to visualize what the weight is looking for because
+the product of two vectors produces a maximal output.</p>
+
+<p>Last Layers:
+Visualise the nearest neighbors to the test set features
+&ndash;&gt; The nearest value will be in terms of feature space instead of exact pixels</p>
+
+<p>Use a t-SNE dimensional feature space to compress the dimensions to 2
+Show the clustering of images</p>
+
+<p>Intermediate:
+Visualize the activations
+&ndash;&gt; Allows you to make guesses about the features detected by each layer.</p>
+
+<p>Occlusion:
+Mask part of the image before feeding to CNN, draw heatmap of probability at each mask location.</p>
+
+<p>Retrieving images that maximally activate a neuron</p>
+
+<p>Links:
+<a href="https://github.com/keras-team/keras/blob/master/examples/conv_filter_visualization.py">https://github.com/keras-team/keras/blob/master/examples/conv_filter_visualization.py</a>
+<a href="https://lvdmaaten.github.io/tsne/">https://lvdmaaten.github.io/tsne/</a></p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

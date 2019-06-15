@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>MachineLearning</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Keras</h1>
+        <div class="meta">Updated at: 2019-05-25 12:26:25.264054334 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>The core data structure of Keras is a <strong>model</strong>, which is used organise layers.</p>
+
+<p>General steps to training:
+1. Create model (by adding layers)
+2. Compile model to configure learning process <code>.compile</code>
+3. Fit model by iterating on training data in batches, or manually train
+4. Evaluate performance, or generate predictions <code>.evaluate</code>, <code>predict</code></p>
+
+<h2>Model Types</h2>
+
+<p>Sequential Model
+Linear stack of layers.</p>
+
+<ol>
+<li>Layers</li>
+</ol>
+
+<p>Created by passing into constructor or by adding layers using the <code>.add</code> method.</p>
+
+<ol>
+<li>Specifying the Input Shape</li>
+</ol>
+
+<p>The model needs to know the input shape that it should expect.</p>
+
+<ol>
+<li>Compilation</li>
+</ol>
+
+<p>Receives three arguments: an optimizer, a loss- function, list of metrics</p>
+
+<h2>Layers</h2>
+
+<h3>About</h3>
+
+<p>All Keras layers have a number of common methods</p>
+
+<ol>
+<li><code>.get_weights</code>: return the weights of the layer as a list of Numpy arrays</li>
+<li><code>.set_weights</code>: sets the weights of the layer from a list of Numpy arrays</li>
+<li><code>.get_config</code>: returns a dictionary containing the configuration of the layer</li>
+</ol>
+
+<p>input and output tensors can also be retrieved easily.</p>
+
+<h3>Batch Normalization</h3>
+
+<p>Batch normalization</p>
+
+<h2>General steps</h2>
+
+<ol>
+<li>Preprocessing</li>
+</ol>
+
+<ul>
+<li>Standardize image
+i.e. ensure the left, right, top, bottom are cropped to a square, before resizing to a standardized side</li>
+</ul>
+
+<p>-</p>
+
+<p>Static == 0(test mode)
+Static == 1(train mode)</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

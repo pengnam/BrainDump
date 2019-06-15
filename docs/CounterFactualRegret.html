@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>MachineLearning</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">CounterFactualRegret</h1>
+        <div class="meta">Updated at: 2019-05-25 12:26:25.263067931 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Defining key ideas</h2>
+
+<p>Regret:
+-at a time t, is a different between our algorithm total loss and the best single expert loss.
+-expresses how much we regret for not following the single best advice.</p>
+
+<p>$$ R = L<em>{H}^{T} - min</em>{i}(L_{i}^{t})$$</p>
+
+<p>An online algorithm H learns without regret if in the limit as T goes into infinity, its <strong>average</strong> regret goes to zero in the worst case. Meaning no single expert is better than H in the limit its average regret goes to zero in the worst case - no single expert better than H in the limit.</p>
+
+<p>Average regret is the cumulative regret divided by time steps.</p>
+
+<p>Information sets: players perspective of game state (i.e. my cards + opp cards + community cards)</p>
+
+<h2>No regret learning</h2>
+
+<p>Repeatedly making decision in an uncertain environment. Receive advice from N experts about a single phenomenon. Our online algorithm H&rsquo;s goal is to distribute trust among experts.</p>
+
+<p>After outcome is revealed, there is a loss vector that evaluates the N experts.</p>
+
+<h2>Counter factual regret minimisation</h2>
+
+<p>Optimises entity called immediate counterfactual regret, which is an upper bound on average overall regret.</p>
+
+<p>Guaranteed to go to zero in the limit if regret matching is applied.</p>
+
+<h3>Counter factual utility</h3>
+
+<p>$$ \sum_{h&rsquo; part of Z} \pi^{\sigma} (h, h&rsquo;)u(h&rsquo;)$$</p>
+
+<p>Z is the set of all terminal nodes</p>
+
+<p>If this is considered for every possible game state (every possible opponent&rsquo;s hand), we will end up with a vector of utilities, one for each hand.</p>
+
+<p>For counterfactual utility, another weighting scheme is used. The probability of reaching h, assuming that we wanted to get to h is used instead.</p>
+
+<p>Instead of using the regular strategy from strategy profile,</p>
+
+<h2>Memory Requirements</h2>
+
+<p>Distinguish: reward for playing action a at time t
+Every action will be rewarded via unnormalized counter factual utility assuming action was played.</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

@@ -45,3 +45,25 @@ split_size = max(mapred.min.split.size, block_size)
 split_num = total_size / split_size
 compute_map_num = min(split_num, max(default_num, goal_num))
 ```
+
+## Overview of Yarn cluster
+
+YARN cluster is composed of host machines. Tuning consists primarily pof defining containers on your worker hosts: container is a rectangular graph consisting of memory and vcores. 
+
+![allocation](./allocation.png)
+
+
+Hosts: provide memory and CPU resources
+Virtual Core (vcore): Usage share of a host CPU
+Application: yarn client that is made up of one or more tasks. A task uses all of the available resources in the container. A task is unable to consume more that its designated allocation. In other terms, I think an application consumes within the confines of the container. 
+
+## Phases in YARN tuning
+
+1. Cluster configuration: configure hosts
+2. YARN configuration: quantify memory and vcores (defining containers)
+3. MapReduce configuration: allocate minimum and maximum resources for specific map and reduce tasks. 
+
+
+
+
+https://www.cloudera.com/documentation/enterprise/5-4-x/topics/cdh_ig_yarn_tuning.html

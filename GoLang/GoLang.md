@@ -80,6 +80,12 @@ Each incoming request is handled as its own goroutine. Request handlers might sp
 golang interface method requires pointer receiver
 https://stackoverflow.com/questions/40823315/x-does-not-implement-y-method-has-a-pointer-receiver
 
+## Method Sets
+A type may have a method set associated with it. The method set of an interface type is its interface. The method set of any other type T consists of all methods declared with receiver type T. The method set of the corresponding pointer type *T is the set of all methods declared with receiver *T or T (that is, it also contains the method set of T). Further rules apply to structs containing embedded fields, as described in the section on struct types. Any other type has an empty method set. In a method set, each method must have a unique non-blank method name.
+
+The method set of a type determines the interfaces that the type implements and the methods that can be called using a receiver of that type.
+
+
 
 ## Useful Links
 

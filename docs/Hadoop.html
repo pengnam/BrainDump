@@ -30,7 +30,7 @@
 
     <div class="post-header">
         <h1 class="title">Hadoop</h1>
-        <div class="meta">Updated at: 2019-06-15 09:54:02.680178675 +0800 +08</div>
+        <div class="meta">Updated at: 2019-06-15 11:25:16.040194822 +0800 +08</div>
     </div>
     <div class="markdown">
 
@@ -81,7 +81,23 @@ compute_map_num = min(split_num, max(default_num, goal_num))
 
 <h2>Overview of Yarn cluster</h2>
 
-<p>YARN cluster is composed of host machines.</p>
+<p>YARN cluster is composed of host machines. Tuning consists primarily pof defining containers on your worker hosts: container is a rectangular graph consisting of memory and vcores.</p>
+
+<p><img src="./allocation.png" alt="allocation" /></p>
+
+<p>Hosts: provide memory and CPU resources
+Virtual Core (vcore): Usage share of a host CPU
+Application: yarn client that is made up of one or more tasks. A task uses all of the available resources in the container. A task is unable to consume more that its designated allocation. In other terms, I think an application consumes within the confines of the container.</p>
+
+<h2>Phases in YARN tuning</h2>
+
+<ol>
+<li>Cluster configuration: configure hosts</li>
+<li>YARN configuration: quantify memory and vcores (defining containers)</li>
+<li>MapReduce configuration: allocate minimum and maximum resources for specific map and reduce tasks.</li>
+</ol>
+
+<p><a href="https://www.cloudera.com/documentation/enterprise/5-4-x/topics/cdh_ig_yarn_tuning.html">https://www.cloudera.com/documentation/enterprise/5-4-x/topics/cdh_ig_yarn_tuning.html</a></p>
 
 
     </div>

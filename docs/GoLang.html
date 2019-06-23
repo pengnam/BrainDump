@@ -30,7 +30,7 @@
 
     <div class="post-header">
         <h1 class="title">GoLang</h1>
-        <div class="meta">Updated at: 2019-06-13 15:43:01.551139923 +0800 +08</div>
+        <div class="meta">Updated at: 2019-06-23 15:12:39.631404845 +0800 +08</div>
     </div>
     <div class="markdown">
 
@@ -128,6 +128,12 @@ Call set deadline before each and every read/write operation.</p>
 
 <p>golang interface method requires pointer receiver
 <a href="https://stackoverflow.com/questions/40823315/x-does-not-implement-y-method-has-a-pointer-receiver">https://stackoverflow.com/questions/40823315/x-does-not-implement-y-method-has-a-pointer-receiver</a></p>
+
+<h2>Method Sets</h2>
+
+<p>A type may have a method set associated with it. The method set of an interface type is its interface. The method set of any other type T consists of all methods declared with receiver type T. The method set of the corresponding pointer type *T is the set of all methods declared with receiver *T or T (that is, it also contains the method set of T). Further rules apply to structs containing embedded fields, as described in the section on struct types. Any other type has an empty method set. In a method set, each method must have a unique non-blank method name.</p>
+
+<p>The method set of a type determines the interfaces that the type implements and the methods that can be called using a receiver of that type.</p>
 
 <h2>Useful Links</h2>
 

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>DistributedSystems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Lucene</h1>
+        <div class="meta">Updated at: 2019-06-30 14:07:40.801446779 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Packages</h2>
+
+<ol>
+<li><p>analysis: defines an abstract analyzer API for converting text from a <em>Reader</em> into a <em>TokenStream</em>, an enumeration of token <em>Attributes</em></p></li>
+
+<li><p>codes: provides an abstraction over the encoding and decoding of the inverted index structure, as well as different implementations that can be chosen depending on application</p></li>
+
+<li><p>document: provides simple <em>Document</em> class. A set of named fields whose names may be strings or instances of <em>Reader</em>.</p></li>
+
+<li><p>index: provides two primary classes: <em>IndexWriter</em> which creates and adds documents to incides</p></li>
+
+<li><p>search: provides data structures to represent queries (<em>TermQuery</em> for individual words, <em>PhraseQuery</em> for phrases)</p></li>
+
+<li><p>store: abstract class to store persistent data</p></li>
+
+<li><p>util: contains handy data structures and util classes</p></li>
+</ol>
+
+<h2>Basic Concepts</h2>
+
+<h3>Index</h3>
+
+<p>Similar to a database table, but less constraints. There are multiple segments of an index.</p>
+
+<p>Document: similar to a row</p>
+
+<p>Field: smallest definable unit of a data index. Data index provides many types of fields.</p>
+
+<p>Term: Term is produced when field is put through an analyzer.</p>
+
+<p>Segment: Index is composed of 1 or more sub-indexes.</p>
+
+<p>First writes to an in-memory buffer (buffer not readable). Once buffer is large enough, it flushes to segment. Each segment has own index, independently searchable but not changed.</p>
+
+<p>A DocId is not actually unique to the Index but is unique to a Segment. Lucene does this mainly to optimize writing and compression. Since it is only unique to a Segment, how can a Doc be uniquely identified at the Index level? The solution is simple. The segments are ordered. To take a simple example, an Index has two segments and each segment has 100 docs respectively. The DocId&rsquo;s in the Segment are 0-100 but when they are converted to the Index level, the range of the DocId&rsquo;s in the second Segment is converted to 100-200.
+DocId&rsquo;s are unique within a Segment, numbered progressively from zero. But this does not mean that the DocId&rsquo;s are continuous. When a Doc is deleted, there is a gap.</p>
+
+<h3>Index type</h3>
+
+<p>Lucene supports many types of fields and each type of field determines the supported data types and index modes.</p>
+
+<h2>Codecs</h2>
+
+<p>Provides abstraction over the encoding and the decoding of the interveted index structure, as well as different implementations that can be chosen depending on application</p>
+
+<p>Whenver Lucene needs to access the index, it does the accessing through codec APIs.</p>
+
+<p>Codec is set-up per segment and every segment is free to use a different codec, although that is uncommon.</p>
+
+<h3>Format</h3>
+
+<ol>
+<li><p>StoredFieldsFormat: encodes each document&rsquo;s stored fields (block compression)</p></li>
+
+<li><p>TermVectorsFormat: encodes per-document term vectors. (block compression)</p></li>
+
+<li><p>LiveDocsFormat: bit set to mark deletion.</p></li>
+
+<li><p>NormsFormat: encodes per-document and per-indexed-field index-time score normalizatino factors as encoded by the similarity. Contains compact encoding of field&rsquo;s length and field level boosting</p></li>
+
+<li><p>SegmentInfoFormat: saves metadata about the segment. How many docs, unique id.</p></li>
+
+<li><p>FieldsInfosFormat: per-field metadata, whether nad how it was indexed, stored.</p></li>
+
+<li><p>PostingsFormat: covers the inverted index, including fields, terms, documents.</p></li>
+
+<li><p>DocValuesFormat: column stride per document values.</p></li>
+
+<li><p>CompoundFormat: collapses separate index files, written by the above formulas into two files per segment.</p></li>
+</ol>
+
+<h2>Commits</h2>
+
+<p>Data is <strong>only</strong> searchable after a commit. Commit is a two stage operation. The first is prepareCommit, commit is called to complete a step.</p>
+
+<h2>Concurrency Model</h2>
+
+<p>Core interfaces are thread-safe and have internal concurrency tuning to optimize multi-thread writing.</p>
+
+<ol>
+<li>Multiple threads concurrently invoke an IndexWriter interface and IndexWriter&rsquo;s specific internal request is executed by DocumentsWriter. Before DocumentsWriter internally processes the request, it allocates DocumentsWriterPerThread based on the thread currently executing the operation.</li>
+<li>Every thread processes data in its own independent DocumentsWriterPerThread space, including tokenizing, relevance scoring and indexing.</li>
+<li>After data processing is finished, some post-processing is carried out at the DocumentsWriter level, such as triggering a FlushPolicy decision.</li>
+</ol>
+
+<p>First and third steps are locked.</p>
+
+<p>Each DWPT includes its own in-memory buffer, which flushes into an independent file/segment.</p>
+
+<h2>Deleting</h2>
+
+<p>Deleting a document goes through a deletion queue. Each DWPT has its own independent deletion queue known as pending updates. DWPT pending updates and global deletion queue schnc bi-directionally because doc deletion is global in scope.</p>
+
+<h2>Indexing Chain</h2>
+
+<p>The key concept in internal indexing is indexingChain, which as</p>
+
+<h2>Compression Techniques</h2>
+
+<ol>
+<li><p>Bitpacking: first bit is a continuation bit. Used for postings lists, numeric doc values.</p></li>
+
+<li><p>LZ4: Used to stored fields. Stored fields take about 70% of the memory.</p></li>
+
+<li><p>FSTs: Map<string,?>, prefix suffix, terms index</p></li>
+</ol>
+
+<h2>What happens when running a term query</h2>
+
+<ol>
+<li><p>Lookup terms in terms index (Uses FST, in memory). Only stores prefixes of terms. Something like a prefix tree. As traversing sum up the weights. The sum is the offsets in the term dictionary. Doesn&rsquo;t load alot of things in memory.</p></li>
+
+<li><p>Term dictinary: compressed based on shared prefixes, similarly to a burst trie called the &ldquo;BlockTree terms dict&rdquo;. Read sequentially till the term is found. Contains information about frequency, score (I think)</p></li>
+
+<li><p>Postings lists:
+block encoding. Encoded using Frame of Reference (FOR) delta</p></li>
+
+<li><p>Stored Fields</p></li>
+</ol>
+
+<p>Find the stored fields per document of the block.</p>
+
+<h2>Disk Seaks</h2>
+
+<p>2 disk seeks per field for search:
+find position in term dict + find postings list</p>
+
+<p>1 disk seek per doc for stored fields:
+Finding the stored values</p>
+
+<p>Typically all in cache</p>
+
+<h2>Bottlenecks:</h2>
+
+<p>First bottle neck is when index grows larger than filesystem cache. Term dict/postings list not fully in cache.</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

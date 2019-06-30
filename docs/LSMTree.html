@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Algorithms</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">LSMTree</h1>
+        <div class="meta">Updated at: 2019-06-26 15:40:44.861508257 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>Data structure makes it attractive for providing indexed access to files with high insert volume, such as transactional log data. LSM keeps data is two or more separate structures.</p>
+
+<h2>Description</h2>
+
+<p>Two tree like structures: C0, C1, C0 in memory and smaller, C1 in disk. New records are inserted into C0. Once C0 is too large, merged with C1 on disk. Migrated to disk in a merge-sort like way.</p>
+
+<h2>How it works:</h2>
+
+<ol>
+<li><p>New write added to an in-memory sorted balanced tree (known as memtable)</p></li>
+
+<li><p>When memtable is too big, it is flushed to disk as an SSTable file. SSTable is a sorted key-value storage on disk of the in-memory tree.</p></li>
+
+<li><p>Reads are directed to memtable. If keys are not found in memtable, it is searched and most recent SSTable is retrieved.</p></li>
+
+<li><p>Duplicate key removed from SSTable and most recent is retained (compaction). Compacted SSTable are merged into new SSTable (merge sort -esque algorithm)</p></li>
+</ol>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

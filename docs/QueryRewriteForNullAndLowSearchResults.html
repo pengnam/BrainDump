@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>InformationRetrieval</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">QueryRewriteForNullAndLowSearchResults</h1>
+        <div class="meta">Updated at: 2019-06-25 11:29:09.155146687 +0800 +08</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>This document summarizes the key points in a paper submitted to SIGIR 2017.
+<a href="http://sigir-ecom.weebly.com/uploads/1/0/2/9/102947274/paper_8.pdf">http://sigir-ecom.weebly.com/uploads/1/0/2/9/102947274/paper_8.pdf</a></p>
+
+<h2>Introduction</h2>
+
+<p>Goal is to design a system that reformulates query into multiple alternative queries that enlarge recall without altering main search intent.</p>
+
+<h2>Approach</h2>
+
+<p>The approach adopted by the paper can be broken down into two parts:</p>
+
+<ol>
+<li><p>For verbose queries, perform POS tagging, entities, unit of measurements.</p></li>
+
+<li><p>For non-verbose queries, reformulate queries by replacing some tokens. Avoids turning specific query into broad query. Done using language model approach.</p></li>
+</ol>
+
+<h2>Query Term Dropping</h2>
+
+<p>Selection of terms drop is dropped by predetermined rules. There are three categories. Tier 1 includes brands, product names, first noun phrases. Tier 2 are attributes of the core product. Tier 3 gropup are stop words, conjunctions.</p>
+
+<h2>Identifying Brands</h2>
+
+<p>Subproblem is the disambiguation of brands.</p>
+
+<p><em>P(B|q) = \sum P(C_i|q) P(B|C_i)</em></p>
+
+<p>Predicts probability that B is brand in context of query q.</p>
+
+<p>C_i is the shopping category.</p>
+
+<h2>Scoring variations</h2>
+
+<p>Form variations using multiple passes, which is similar to the system I currently implemented that adopts a pseudo- BFS approach.</p>
+
+<p>Suggestions from earlier pass will always rank higher than the ones from the later passes, as overall queries with more original tokens are believed to be closer to the original user content.</p>
+
+<p>The paper&rsquo;s algorithm also prefers suggestions with more brands or nouns over suggestions with more adjectives.</p>
+
+<p>Baseline tagging scoe is given by a step function over their tags. 54% of tokens are nouns. There is hence a need to rank the nouns.</p>
+
+<p>Ranking nouns can be done by using the cross-entropy of clicking probabilities conditioning on their document frequencies.</p>
+
+<p><em>P_click&reg;  = -P(click|r) log(1 - P(click|r))</em></p>
+
+<p>r is the document frequency of the token. P(click|r) is evaluated by a large sample of null queries. P(click | r) is evaluated by a large number of null queries.</p>
+
+<p>Clicking score added to tagging score using discounted cumulative gain.</p>
+
+<h2>Query Term Replacement</h2>
+
+<p>Consider all reassignments of tokens of the n-gram model. To calculate the probability that one token is replaced by another token,</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

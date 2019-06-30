@@ -22,17 +22,51 @@ Document oriented
 - Schema can be defined for customizing indexing process
 
 
+## Key concepts
+
+1. Near Realtime
+
+There is about a 1 sec latency from indexing to searching
+
+2. Cluster
+
+Collection of one or more ndoes that holds data, provides federated indexing and search capabilities across all nodes. 
+Cluster identified by unique name, and node joins a cluster only through name
+
+3. Node
+
+Single server in cluster, stores data, participates in indexing and search. Node identified by random UUID. 
+
+4. Index
+
+Index is a collection of docs w similar characteries, identified by name
+
+5. Type
+
+Logical category/partition of index to allow one to store diff type of documents in the index (to be deprecated)
+
+6. Document 
+
+Expressed as JSON
+
+7. Shards and replicas
+
+Sharding allows one to horizontally split/scale content. Allows one to distribute and parallelize operations across shards. When you create an index, one can simply define the number of shards that one wants. 
+
+Each shard is a fully functional index.
 
 ## Lucene
 High performance, full-featured text search engine. 
+
 150GB/hour with small RAM requirements (1MB heap)
+
 About 20%/30% of size
 
 Implements efficient search algorithms, available open source under Apache license
 
-## REading Documents
+## Reading Documents
 ### Data replication model
-EAch index is divided into shards, and each shard has multiple copies. Each copy is a replacation group and kepy in sync. 
+Each index is divided into shards, and each shard has multiple copies. Each copy is a replacation group and kept in sync. 
 
 Data replication is based on the primary-backup model, and described well in PacificA paper of microsoft research. Single copy of replication group that acts as primary shard, the other copies are replication shards. 
 
@@ -87,8 +121,12 @@ Refresh controls when changes made by the request are made available to search.
 
 ## API
 
-## Search Shars API
-Returns the indices and shareds that a search request would be executed against. 
+## Search API
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started-search-API.html
+
+## Search Shard API
+Returns the indices and shards that a search request would be executed against. 
 
 Sequence number and primary term uniquely identify a change. 
 
@@ -103,5 +141,118 @@ BoolQueries:
 A query that matches documents matching boolean combinations of other queries. 
 
 Built using 1 or more boolean clauses, which each clause mapping to a typed occurence.
+
+
+## A note about Indexing
+
+An elasticsearch cluster can contain multiple *indices*, which in turn contain multiple *types*. These types hold multiple documents, and each document has multiple *fields*. 
+
+
+## Index lifecycle
+
+There are four stages in the index life cycle.
+
+1. Hot - index being updated and queried
+2. Warm - index no longer being updated, still being queried
+3. Cold - no longer being updated and is seldom queried. 
+4. Delete - index is no longer needed and can be safely deleted
+
+
+Lifecycle policy governs index transitions through these stages:
+1. Maximum size or age at which we want to roll over to new index
+2. Point that index is no longer being udpdated
+3. When to force merge, permanently delete documents
+4. Index deletion
+
+## Document Orientated
+
+Objects are complete data structures that may contain dates, geo locations, other objects, arrays
+
+These objects are stored and indexed to be searchable. JSON is used as all languages support it. 
+
+Converting object to JSON to be indexed is simpler than converting JSON to flat table. 
+
+Document has metadata. The three required metadata:
+
+1. _index: where the document lives
+
+2. _type: class of object that document represents
+
+3. _index: collection of documents that should be grouped together for a common reason
+
+## Mapping
+
+Mapping is the process of defining how a document, and the fields in contains, are stored and indexed. For instance, use mappings to define:
+
+1. Which string fields should be treated as full text fields
+2. Which fields contains numbers, dates, geolocations
+4. Format of date values
+5. Custom rules to control mapping for dynamically added fields
+
+Each index has a mapping type to determine how the document will be indexed. 
+
+Mapping type has:
+	- Meta-fields: used to customized how a document's meta data asscociated and treated
+	
+	- Fields or properties: Contains list of fields or properties pertinent to the document
+
+Settings to prevent mappings explosion:
+
+Too many fields in an index is a condition that can lead to mapping explosion, which can cause out of memory errors and difficult situations to recover from. This problem may be more common than expected. Consider where every new document inserted introduces new fields. 
+
+
+
+
+
+
+
+## Creating and Updating a document
+
+When sending a PUT request and if a document with the same _index, _type, _id exists, 
+	1. If ?op_type=create is present, then  the request will be rejected with a *409 Conflict* response code
+	2. If it is not present, new document will be created with a higher version number, older document is rejected 
+
+We are also able to partially update the document using _update. Scripting using Groovy is also supported.
+
+## Concurrency Control
+
+The most recent request wins in ES.
+Preventing race condition when updating values in index.
+
+### Pessimistic Concurrency Control
+Used in relational databases, assumes conflicting changes are likely to happen. Blocl access to a resource in order ot prevent conflicts. i.e. locking a row before reading data, ensuring only the thread that place the lock is able to make changes. 
+
+### Optimistic Concurrency Control
+Used in ES, assumes conflicts are unliekely to happen, doesn't block.
+However, if underlying data has been modified between reading and writing, the update will fail. Then up to application to decide how to resolve the conflict. 
+
+
+ES is async and concurrent, meaning that requests may arrive at destination *out of sequence*. Versions change at every document change, and ES uses version to ensure changes are applied in the correct order. i.e. if an old document arrives after new, it can be ignored. 
+
+*This requires the user to retrieve a copy if the document to get its version number, before reindexing the document with the version number of the document that it shuold ne applied to*.
+
+Note that an external data store can be used. By specifiying version_type=external parameter, ES checks that the current version is less than specified version. 
+
+## Distributed Document Store
+
+When a document is indexed, it is stored on a single primary shard.
+
+Routing can be used direct requests to the right shard. 
+
+
+### Store
+
+Allows one to control how index data is stored and accessed on disk
+
+*fs*:
+	Default file system implementation. Pick best implementation depending on the OS. 
+
+*simplefs*: 
+	Straightforward implementation of file system storage
+
+*niofs*: 
+	Stores the shard index on the file system
+
+
 
 

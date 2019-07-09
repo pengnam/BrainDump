@@ -255,4 +255,91 @@ Allows one to control how index data is stored and accessed on disk
 
 
 
+## Elasticsearch Cluster
 
+- Master node: creates, deletes indices. Adds, removes nodes. On cluster state change, master node broadcasts the changes to other nodes in the cluster. Only 1 master node in cluster.
+
+- Data node: holds data in shards, performs CRUD, search, aggregations. If 1 data node stops, cluster reorganizes, and continues operation. 
+
+- Client node: routes cluster related requests to the master node, data-related requests to the data nodes. 
+
+- Tribe node: talk to multiple clusters to perform search and other operations. 
+
+- Ingest node: pre-processing documents before actual indexing.
+
+
+### Adding node to cluster
+
+When starting a node, node pings all nodes in the cluster to find master node. Once master is found, it will ask master to join by sending a join request. Master accepts it as new node of cluster, notify all nodes in cluster about presence of new node. 
+
+If joined node is data node, master will reallocate data evenly across nodes. 
+
+
+### Remove node
+
+If we stop a node that is unresponsive in specific amount of time, master node will remove it from cluster and reallocate the data. 
+
+
+### Elasticsearch Basics
+
+1. Elasticsearch is a search engine (not a datastore)
+
+2. Horizontal scaling: we can build a cluster with an infinity of hosts, depending on needs and bottlenecks. Running dataset on alot of small machines better than using a few large hosts. 
+
+### Hardware
+
+- CPU
+
+CPU is needed for running complex filtered queries, intensive indexing, word analyses. The right CPU can drastically change the performance. 
+
+ES breaks the CPU use into threadpools:
+
+	1. Generic: for standard operations such as discovery
+
+	2. Index: for indexing
+
+	3. Get: for get operations
+
+	4. Bulk: for bulk operations such as bulk indexing
+
+	5. Percolate: for percolation
+
+
+Each pool runs a number of threads, that are allocated to the pools.
+
+- Memory
+
+ES runs on Java, Java is garbage collected. Memory divided into 2 parts: Java heap space and everything else. (ES does not rely on Java only). More memory given to the heap, more time Java spends garbage collecting. 
+
+CMS runs multiple concurrent threads to scan the heap for objects that can be recycled. "Stop the world" 
+
+Java 8 brings a brand new garbage collector called Garbage First designed for heaps greater than 4GB. G1 uses background threads to divide the heap into regions, and scans the regions that contai the most garbage objects first. 
+
+For operational reasons, this is good. However, the new JVM might lead to data corruption. 
+
+ES has multiple buffers to perform in memory operations, as well as chache to store query results. 
+
+	1. Indexing buffer: buffer data during indexing
+
+	2. Buffer pools
+
+
+More memory better outside heap. Off heap memory manage threads and for filesystem to cache data. 
+
+File system storage affects performance. NIO FS and MMAPFS. NIOFS lets the kernel manage the file system cache instead of relying on the rboken, oom generator mmapfs. 
+
+You can also commit the exact amount of memory I want ot allocate the heap at startup. Prevents the node from swapping when trying to allocate memory. 
+
+- Network
+
+ES performs alot of network consuming operations from transferring data during queries to reallocating shards. 
+
+ES generally has low network related settings, and we should consider raising the bar. 
+
+- Sharding
+
+Shards are allocated logical parts that can be allocated on all the cluster data nodes. Sharding defined when index created. Only way to change number of shards is to delete indices, create them, reindex. Resize ES in production. 
+
+Don't create more shards than needed, especially if ES routing parameter is used. There will be alot of empty shards. 
+
+Alot of shards on huge indices is good for large cluster (20 data nodes or more). Multiple shards allow for better allocation. Small shares make cluster recovery faster when losing a data node or shutting down cluster. 

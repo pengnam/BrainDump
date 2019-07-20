@@ -1,33 +1,21 @@
 
 
 
-Check thesecretlivesof.data.com/raft
+# Raft
 
-
-PAxos is a family of protocols. 
-
-Check lamport's website. 
-
-
-
-# Paxos
-
-Can be decomposed to relatively simple subproblems. 
-
-1. correctness: under non-byzantine conditions
-2. available: Any cluster of 5 can tolerate a cluster on 2
-3. Does not depend on timing
+- Raft is a concensus algorithm that is an alternative to Paxos. 
+- It offers a generic way to distributed a state machine across a cluster of computing systems, ensuring that each node in the cluster agrees upon the same series of state transactions. 
+- Reliable, Replicated, Redundant, and Fault Tolerant. 
 
 
 ## Subproblems
 1. Leader election
 2. Log replication
-3. Safety
 
 ## Leader election
 Roles:
 - Leader: onyl one leader
-Candidate: leader candidates in the election process
+- Candidate: leader candidates in the election process
 - Follower: Do not send any request, only accespt heartbeat from laeader, except forwarding requests from client to leader
 
 ### Changing of roles

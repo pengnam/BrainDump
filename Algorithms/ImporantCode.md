@@ -175,7 +175,6 @@ def setBit(num,i):
 def clearBit(num,i):
     mask = ~(i<<i)
     return num & mask
-def
 
 ```
 
@@ -219,3 +218,26 @@ for item in set:
         result.add(set + item)
 
 ```
+
+
+# NP-P Problems
+
+1. Vertex Cover
+2. 3 SAT
+3. Independent Set
+4. Hamiltonian Path Decision Problem
+5. 0/1 Knapsack
+
+
+# UFDS
+x = FindSet(i)
+
+y = FindSet(j)
+
+if (x != y) // !IsSameSet(i, j)
+
+    if rank[x] > rank[y]
+
+          p[y] = x;
+
+            else p[x] = y;

@@ -47,6 +47,8 @@ for i in range(N):
 Good tips on monotonic queues:
 https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/discuss/204290/Monotonic-Queue-Summary
 
+Medians: Use two heaps
+
 
 ## LinkedList
 Always check if you are removing from the start of the linkedlist (requires reassignment of head ptr)
@@ -77,10 +79,14 @@ Weaving two sets:
 Use the first element from first set as prefix, recurse.
 Use the first element from second set as prefix, recurse.
 
+
 ## Useful Problems:
 
 Reaching Points - work from the back instead of the front
+Odd-even Jumps - monotonic stacks: finding the next index on your right that is your ceiling
+Largest Window Area - monotonic deques: maintaing a sliding window of sorts
 
+BinaryTreeCover - Recursion practice
 
 ## About Python
 https://stackoverflow.com/questions/986006/how-do-i-pass-a-variable-by-reference#986145

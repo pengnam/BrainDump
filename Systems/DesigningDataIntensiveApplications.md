@@ -1,5 +1,17 @@
 # Designing Data Intensive Applications
 
+## Storage and Retrieval
+
+A database needs to do two things
+When we are given the data, we should store the data and when asked for the data, we should return the data. 
+
+There are big differences between storage engines optimized for transactional workloads, and those optimized for analytics. 
+
+Exploring the distinction:
+
+1. 
+
+
 ## Replication
 
 - Keeping a copy of the same data on multiple machines that are connected via a network. 

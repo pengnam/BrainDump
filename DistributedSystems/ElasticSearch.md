@@ -223,6 +223,7 @@ Preventing race condition when updating values in index.
 Used in relational databases, assumes conflicting changes are likely to happen. Blocl access to a resource in order ot prevent conflicts. i.e. locking a row before reading data, ensuring only the thread that place the lock is able to make changes. 
 
 ### Optimistic Concurrency Control
+
 Used in ES, assumes conflicts are unliekely to happen, doesn't block.
 However, if underlying data has been modified between reading and writing, the update will fail. Then up to application to decide how to resolve the conflict. 
 
@@ -343,3 +344,51 @@ Shards are allocated logical parts that can be allocated on all the cluster data
 Don't create more shards than needed, especially if ES routing parameter is used. There will be alot of empty shards. 
 
 Alot of shards on huge indices is good for large cluster (20 data nodes or more). Multiple shards allow for better allocation. Small shares make cluster recovery faster when losing a data node or shutting down cluster. 
+
+
+### ElasticSearch cross cluster replication
+
+Replication
+
+Replication managed at index level, performed at shard level. Follow index is configured to have identical number of shards as leader index. 
+
+
+### Remote Clusters
+
+Remote clusters enable unidirectional connections to remote cluster. Configuring remote cluster, connecting only to a limited number of nodes. Each remote clsuter referenced by aa name and a list of seed nodes. When remote cluster registered, clsuter state is retrieved, up to 3 gateway nodes are selected to be connected as part of remote cluster requests. All 
+
+## Requests
+
+Requests have two phases:
+
+1. Scattering phase
+
+Forwards requests to data nodes that holds the data. Each data node executes the request locally and returns results to the coordinating node
+
+
+2. Gathering phase
+
+coordinating node reduces each data node's results to a single global ruleset
+
+coordinating node has a priority queue to sort results globally
+
+sorted by relevant
+
+
+## Concensus
+
+Zen discovery module only has two parts:
+
+ping: process to discover each other
+
+unicast: list of hostnames to control which nodes to ping
+
+ES is a P2P systen where all nodes communicates with each other and there is one active master tht controls and updates cluster wide state and operations. 
+
+
+## Translog
+
+Flush is performed every 30mins, hence its possible to lose commits in buffer. ES gets around that by using a translog, and translog is `fsync`ed after every operation.
+
+
+## 

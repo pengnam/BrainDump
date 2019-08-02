@@ -23,10 +23,9 @@ While I might run the main program for ad-hoc tasks, playbooks are more likely t
 
 Consists of one or more plays.
 
-A play maps a group of hosts to some well defined roles, represented by thing sansible calls tasks. 
+A play maps a group of hosts to some well defined roles, represented by things ansible calls tasks. 
 
 A task is a call to an ansible module. 
-
 
 By composing a playbook of multiple 'plays', it is possible to orchestrate multi-machine deployments. 
 
@@ -51,7 +50,7 @@ Modules should be idempotent. Should always check if desired final state has bee
 
 #### Handlers: Running operations on change
 
-Handlers list of tasks referenced by a globally unique name, notified by notifiers. 
+Handlers list of tasks referenced by a globally unique name, notified by notifiers. Handlers are listed in the `notify` section. 
 
 
 #### Notable commands
@@ -60,4 +59,20 @@ ansible-pull : small script that checksout a repo of configuration instructions 
 
 ansible-lint : runs a detailed check of playbook
 
+#### Variables
 
+Should be specified in the config files. There should be a concern when replaying as the variables might not be the same/not declared
+
+#### Register Variables
+
+Register variables are used when we want to capture output of a task to a register. Some modules have specific return values.
+
+
+### Lookup Plugins
+Lookup plugins allow Ansible to access data from outside sources. This means that ansible can read file system, contact external datastores, services. Evaluated on the Ansible control machine and not the target or remote.
+
+Lookup plugins can be used anywhere in the templating in Ansible: in a play, variables file, Jinja2 template for the template module. 
+
+### Query Plugins
+
+`query` is used for lookup plugins. 

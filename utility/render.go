@@ -79,7 +79,7 @@ func renderFile(content File) error {
 		return err
 	}
 
-	writer, err := os.Create("../build/" + content.Title + ".html")
+	writer, err := os.Create("../docs/" + content.Title + ".html")
 	if err != nil {
 		return err
 	}
@@ -98,7 +98,7 @@ func renderIndex(files []File) error {
 		return err
 	}
 
-	writer, err := os.Create("../build/index.html")
+	writer, err := os.Create("../docs/index.html")
 	if err != nil {
 		return err
 	}
@@ -143,7 +143,7 @@ func renderListing(topics []Topic) error {
 		return err
 	}
 
-	writer, err := os.Create("../build/listing.html")
+	writer, err := os.Create("../docs/listing.html")
 	if err != nil {
 		return err
 	}

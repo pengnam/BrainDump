@@ -60,3 +60,5 @@ http://marcio.io/2015/07/handling-1-million-requests-per-minute-with-golang/
 <-- Application Request -->
 Application Thread -> syscall -> block --> wakeup --> end
 			| 	on CPU kernel 	|
+
+

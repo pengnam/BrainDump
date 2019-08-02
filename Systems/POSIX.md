@@ -15,3 +15,13 @@ Especially in light of an increasing number of unix systems.
 4. Pipes
 5. C library
 6. I/O Port interfaces
+
+
+## mmap
+
+`mmap` is a POSIX compliant UNIX syscall that maps files or devices into memory. It is a method of memory-mapped file I/O.
+
+Implements demand paging, because file contents are not read from disk directly and initially do not use physical RAM at all. 
+
+Actual reads are performed in a "lazy" manner after a specific location is accessed. 
+

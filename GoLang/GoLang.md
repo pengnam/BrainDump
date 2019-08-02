@@ -93,3 +93,4 @@ https://queue.acm.org/detail.cfm?id=2839461
 (*) https://blog.cloudflare.com/the-complete-guide-to-golang-net-http-timeouts/
 
 
+https://stackoverflow.com/questions/32815400/how-to-perform-division-in-go

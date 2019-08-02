@@ -7,6 +7,8 @@ VIM is a highly configurable text editor built to enable efficient text editing.
 
 - :Sex : File navigator
 - CTRL + v : visual block mode
+- Ex . : File navigator
+- reg : Show contents of the register
 
 Navigation:
 - CTRL + b

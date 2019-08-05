@@ -30,7 +30,7 @@
 
     <div class="post-header">
         <h1 class="title">ImporantCode</h1>
-        <div class="meta">Updated at: 2019-05-25 12:26:25.259725064 +0800 +08</div>
+        <div class="meta">Updated at: 22 May 2019 22:00:39</div>
     </div>
     <div class="markdown">
 
@@ -208,7 +208,6 @@ def setBit(num,i):
 def clearBit(num,i):
     mask = ~(i&lt;&lt;i)
     return num &amp; mask
-def
 
 </code></pre>
 
@@ -250,6 +249,31 @@ for item in set:
     for set in result:
         result.add(set + item)
 
+</code></pre>
+
+<h1>NP-P Problems</h1>
+
+<ol>
+<li>Vertex Cover</li>
+<li>3 SAT</li>
+<li>Independent Set</li>
+<li>Hamiltonian Path Decision Problem</li>
+<li>0/1 Knapsack</li>
+</ol>
+
+<h1>UFDS</h1>
+
+<p>x = FindSet(i)</p>
+
+<p>y = FindSet(j)</p>
+
+<p>if (x != y) // !IsSameSet(i, j)</p>
+
+<pre><code>if rank[x] &gt; rank[y]
+
+      p[y] = x;
+
+        else p[x] = y;
 </code></pre>
 
 

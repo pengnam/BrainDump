@@ -15,7 +15,7 @@
       <div class="header">
           <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
           <div class="site-description">
-              <h2>WebProgramming</h2>
+              <h2>Systems</h2>
           </div>
           <nav class="nav">
               <ul class="flat">
@@ -29,43 +29,38 @@
 
 
     <div class="post-header">
-        <h1 class="title">Javascript</h1>
-        <div class="meta">Updated at: 11 Feb 2019 15:13:04</div>
+        <h1 class="title">Systemd</h1>
+        <div class="meta">Updated at: 04 Aug 2019 13:52:42</div>
     </div>
     <div class="markdown">
 
           
 
-<h2>Understand this</h2>
+<h2>Use of &lsquo;-&rsquo; in assignment</h2>
 
-<h3>Credits</h3>
+<p>The argument passed should be an absolute filename or wildcard expression, optionally prefixed with &ldquo;-&rdquo;, which indicates that if the file does not exist, it will not be read and no error or warning message is logged.</p>
 
-<p><a href="https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/">https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/</a></p>
+<p>If any of those commands (not prefixed with -) fail, the rest are not executed and the unit is considered failed.</p>
 
-<h3>Core Primitives</h3>
+<h2>Specifying process properties</h2>
 
-<p>Core primitive is a functions call method. <br>
-The first argument is the thisValue of the method,</p>
+<p>There are soft and hard limits for executed processes. setrlimit can be used for resource limit. When set to <em>infinity</em>, it implies that there are no limits.</p>
 
-<pre><code>function hello(thing) {
-    console.log(this + &quot;says&quot; + thing);
-}
+<h2>Configuring resource limits</h2>
 
-hello.call(&quot;Sean&quot;, &quot;How cool is this not&quot;)
-</code></pre>
+<p>There are typically two ways to configure resource limits:</p>
 
-<p>The short version is: a function invocation like <code>fn(...args)</code> is the same as <code>fn.call(window [ES5-strict: undefined], ...args)</code>.</p>
+<ol>
+<li>ulimit:</li>
+</ol>
 
-<p>**
-A function does not necessarily have a consistent notion of <code>this</code>.
-**</p>
+<p>Used to change resource limits on a temporary basis.</p>
 
-<pre><code>var bind = function(func, thisValue) {
-  return function() {
-    return func.apply(thisValue, arguments);
-  }
-}
-</code></pre>
+<ol>
+<li>/etc/security/limits.conf</li>
+</ol>
+
+<p>Persistent limits can be set for a particular user by editing the <code>/etc/security/limits.conf</code>.</p>
 
 
     </div>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Systems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Prometheus</h1>
+        <div class="meta">Updated at: 04 Aug 2019 13:52:42</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Fundamental Concepts</h2>
+
+<h3>Data Model</h3>
+
+<p>Prometheus stores all data as time series: streams of timestamped values belonging to the same metric and the same set of labeled dimensions. It also generates derived time series from these data.</p>
+
+<h3>Jobs and instances</h3>
+
+<p>An endpoint that you can scrape is an instance. A collection of instances with the same purpose, a process replicated for scalability or reliability, is called a job.</p>
+
+<p>When prometheus scrapes a target, it attaches some labels automatically to scraped time series which serve to identify the scraped target.</p>
+
+<p>Prometheus stores a sample in the time series.</p>
+
+<h2>Current system at workplace</h2>
+
+<ol>
+<li>Prometheus</li>
+</ol>
+
+<p>Metrics collection, storage, calculation</p>
+
+<ol>
+<li>M3DB</li>
+</ol>
+
+<p>Efficient storage for prometheus data. Stores time series database. Distribute time series database.</p>
+
+<ol>
+<li>Grafana</li>
+</ol>
+
+<p>Visualization tool and alterting tool</p>
+
+<h2>The system</h2>
+
+<p>Components:</p>
+
+<p>ZK stores IP address of each node</p>
+
+<p>Script stores IP addresses into prometheus,</p>
+
+<p>Fanout Storage
+-Reads/writes series data</p>
+
+<ul>
+<li><p>Local storage</p></li>
+
+<li><p>Remote storage</p></li>
+</ul>
+
+<h2>M3DB</h2>
+
+<p>TSZ: 1.45 bytes/datapoint</p>
+
+<p>All writes persist to a commit log</p>
+
+<p>Sharding and replication makes horizontal scaling easier.</p>
+
+<p>Provide more fine grained lock granularity.</p>
+
+<p>Data consistency level when writing and reading.</p>
+
+<p>Cache to speed up read operation</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

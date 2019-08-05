@@ -15,7 +15,7 @@
       <div class="header">
           <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
           <div class="site-description">
-              <h2>WebProgramming</h2>
+              <h2>Languages</h2>
           </div>
           <nav class="nav">
               <ul class="flat">
@@ -29,43 +29,46 @@
 
 
     <div class="post-header">
-        <h1 class="title">Javascript</h1>
-        <div class="meta">Updated at: 11 Feb 2019 15:13:04</div>
+        <h1 class="title">Scala</h1>
+        <div class="meta">Updated at: 04 Aug 2019 13:52:42</div>
     </div>
     <div class="markdown">
 
           
 
-<h2>Understand this</h2>
+<h2>Why Scala</h2>
 
-<h3>Credits</h3>
+<p>Runs on JVM. Statically typed.</p>
 
-<p><a href="https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/">https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/</a></p>
+<p>Object orientated</p>
 
-<h3>Core Primitives</h3>
+<p>Functional</p>
 
-<p>Core primitive is a functions call method. <br>
-The first argument is the thisValue of the method,</p>
+<h2>Features</h2>
 
-<pre><code>function hello(thing) {
-    console.log(this + &quot;says&quot; + thing);
-}
+<p>Type inference</p>
 
-hello.call(&quot;Sean&quot;, &quot;How cool is this not&quot;)
-</code></pre>
+<p>Functional capabilities reduces the number of lines of code</p>
 
-<p>The short version is: a function invocation like <code>fn(...args)</code> is the same as <code>fn.call(window [ES5-strict: undefined], ...args)</code>.</p>
+<p>Getters and setters</p>
 
-<p>**
-A function does not necessarily have a consistent notion of <code>this</code>.
-**</p>
+<h2>Value versus variable</h2>
 
-<pre><code>var bind = function(func, thisValue) {
-  return function() {
-    return func.apply(thisValue, arguments);
-  }
-}
-</code></pre>
+<p><code>val</code> does not allow reassignment. <code>var</code> allows reassignment</p>
+
+<h2>Object Orientated</h2>
+
+<p>Every value is an object.</p>
+
+<p>Every operation is a method call.</p>
+
+<h2>Class inheritance</h2>
+
+<h2>Additional features</h2>
+
+<p>Case classes to do pattern matching</p>
+
+<p>Multivariable assignment</p>
 
 
     </div>

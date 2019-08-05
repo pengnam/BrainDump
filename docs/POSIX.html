@@ -30,7 +30,7 @@
 
     <div class="post-header">
         <h1 class="title">POSIX</h1>
-        <div class="meta">Updated at: 2019-05-25 12:26:25.26646149 +0800 +08</div>
+        <div class="meta">Updated at: 04 Aug 2019 13:52:42</div>
     </div>
     <div class="markdown">
 
@@ -55,6 +55,14 @@ Especially in light of an increasing number of unix systems.</p>
 <li>C library</li>
 <li>I/O Port interfaces</li>
 </ol>
+
+<h2>mmap</h2>
+
+<p><code>mmap</code> is a POSIX compliant UNIX syscall that maps files or devices into memory. It is a method of memory-mapped file I/O.</p>
+
+<p>Implements demand paging, because file contents are not read from disk directly and initially do not use physical RAM at all.</p>
+
+<p>Actual reads are performed in a &ldquo;lazy&rdquo; manner after a specific location is accessed.</p>
 
 
     </div>

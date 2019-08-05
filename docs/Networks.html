@@ -15,7 +15,7 @@
       <div class="header">
           <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
           <div class="site-description">
-              <h2>WebProgramming</h2>
+              <h2>Systems</h2>
           </div>
           <nav class="nav">
               <ul class="flat">
@@ -29,43 +29,20 @@
 
 
     <div class="post-header">
-        <h1 class="title">Javascript</h1>
-        <div class="meta">Updated at: 11 Feb 2019 15:13:04</div>
+        <h1 class="title">Networks</h1>
+        <div class="meta">Updated at: 05 Aug 2019 00:41:52</div>
     </div>
     <div class="markdown">
 
           
 
-<h2>Understand this</h2>
+<h2>URIs vs URLs</h2>
 
-<h3>Credits</h3>
+<p>URI: Uniform resource indicator</p>
 
-<p><a href="https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/">https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/</a></p>
+<p>URL: Uniform resource locator</p>
 
-<h3>Core Primitives</h3>
-
-<p>Core primitive is a functions call method. <br>
-The first argument is the thisValue of the method,</p>
-
-<pre><code>function hello(thing) {
-    console.log(this + &quot;says&quot; + thing);
-}
-
-hello.call(&quot;Sean&quot;, &quot;How cool is this not&quot;)
-</code></pre>
-
-<p>The short version is: a function invocation like <code>fn(...args)</code> is the same as <code>fn.call(window [ES5-strict: undefined], ...args)</code>.</p>
-
-<p>**
-A function does not necessarily have a consistent notion of <code>this</code>.
-**</p>
-
-<pre><code>var bind = function(func, thisValue) {
-  return function() {
-    return func.apply(thisValue, arguments);
-  }
-}
-</code></pre>
+<p>URL is a subset of URI. URI is the identifier of a resource and it can be a locator.</p>
 
 
     </div>

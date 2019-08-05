@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Systems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Ansible</h1>
+        <div class="meta">Updated at: 04 Aug 2019 13:52:42</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Introduction</h2>
+
+<p>Ansible is an automation tool, with strong focus on security and reliability. Use of OpenSSH for transport.</p>
+
+<p>Ansible manages machines in an agent-less manner. Decentralized by using existing OS credentials to control access to remote machines. It will try to use native OpenSSH for remote communication when possible.</p>
+
+<p>This enables ControlPersist, Kerberos, and JumpHost. Ansible does not expose a channel to allow communication between user and the ssh process.</p>
+
+<h2>Two modes</h2>
+
+<ol>
+<li><p>Ad-hoc task execution</p></li>
+
+<li><p>Playbook execution</p></li>
+</ol>
+
+<p>Playbook are the basis for really simple configuration management and multi-machine deployment system.</p>
+
+<p>While I might run the main program for ad-hoc tasks, playbooks are more likely to be kept in source control.</p>
+
+<h2>Playbooks</h2>
+
+<p>Consists of one or more plays.</p>
+
+<p>A play maps a group of hosts to some well defined roles, represented by things ansible calls tasks.</p>
+
+<p>A task is a call to an ansible module.</p>
+
+<p>By composing a playbook of multiple &lsquo;plays&rsquo;, it is possible to orchestrate multi-machine deployments.</p>
+
+<h3>Basics</h3>
+
+<h4>Hosts</h4>
+
+<p>For each play, I get to define which machines are targeted, and what the remote user should do to complete the tasks.</p>
+
+<p><code>hosts</code> line is a list of 1 or more groups or host patterns, separated by colons. <code>remote_user</code> is name of user account.</p>
+
+<h4>Tasks list</h4>
+
+<p>Each play contains a list of tasks. Tasks executed in order, one at a time, against all machines matched by a host pattern.</p>
+
+<p>Hosts with failed tasks are taken out of rotation for entire playbook.</p>
+
+<p>Modules should be idempotent. Should always check if desired final state has been achieved, and if state has been achieved, to exit without performing any actions.</p>
+
+<p><code>name</code> is a human readable output.</p>
+
+<h4>Handlers: Running operations on change</h4>
+
+<p>Handlers list of tasks referenced by a globally unique name, notified by notifiers. Handlers are listed in the <code>notify</code> section.</p>
+
+<h4>Notable commands</h4>
+
+<p>ansible-pull : small script that checksout a repo of configuration instructions from git</p>
+
+<p>ansible-lint : runs a detailed check of playbook</p>
+
+<h4>Variables</h4>
+
+<p>Should be specified in the config files. There should be a concern when replaying as the variables might not be the same/not declared</p>
+
+<h4>Register Variables</h4>
+
+<p>Register variables are used when we want to capture output of a task to a register. Some modules have specific return values.</p>
+
+<h3>Lookup Plugins</h3>
+
+<p>Lookup plugins allow Ansible to access data from outside sources. This means that ansible can read file system, contact external datastores, services. Evaluated on the Ansible control machine and not the target or remote.</p>
+
+<p>Lookup plugins can be used anywhere in the templating in Ansible: in a play, variables file, Jinja2 template for the template module.</p>
+
+<h3>Query Plugins</h3>
+
+<p><code>query</code> is used for lookup plugins.</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

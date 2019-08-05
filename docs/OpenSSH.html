@@ -15,7 +15,7 @@
       <div class="header">
           <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
           <div class="site-description">
-              <h2>WebProgramming</h2>
+              <h2>Systems</h2>
           </div>
           <nav class="nav">
               <ul class="flat">
@@ -29,43 +29,32 @@
 
 
     <div class="post-header">
-        <h1 class="title">Javascript</h1>
-        <div class="meta">Updated at: 11 Feb 2019 15:13:04</div>
+        <h1 class="title">OpenSSH</h1>
+        <div class="meta">Updated at: 04 Aug 2019 13:52:42</div>
     </div>
     <div class="markdown">
 
           
 
-<h2>Understand this</h2>
+<p>OpenSSH: suite of secure networking utilities based on the secure shell protocol. Provides a secure channel over an unsecured network.</p>
 
-<h3>Credits</h3>
+<ol>
+<li>Port forwarding:</li>
+</ol>
 
-<p><a href="https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/">https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/</a></p>
+<p>allows forwarding of TCP/IP connections to a remote machine over an encrypted channel. Insecure applications can be secured with this.</p>
 
-<h3>Core Primitives</h3>
+<ol>
+<li>Strong authentication:</li>
+</ol>
 
-<p>Core primitive is a functions call method. <br>
-The first argument is the thisValue of the method,</p>
+<p>protects against several security problems: IP spoofing, fake routes, DNS spoofing. Public key authentication, one-time passwords.</p>
 
-<pre><code>function hello(thing) {
-    console.log(this + &quot;says&quot; + thing);
-}
+<ol>
+<li>Agent forwarding:</li>
+</ol>
 
-hello.call(&quot;Sean&quot;, &quot;How cool is this not&quot;)
-</code></pre>
-
-<p>The short version is: a function invocation like <code>fn(...args)</code> is the same as <code>fn.call(window [ES5-strict: undefined], ...args)</code>.</p>
-
-<p>**
-A function does not necessarily have a consistent notion of <code>this</code>.
-**</p>
-
-<pre><code>var bind = function(func, thisValue) {
-  return function() {
-    return func.apply(thisValue, arguments);
-  }
-}
-</code></pre>
+<p>Agent forwarding</p>
 
 
     </div>

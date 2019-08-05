@@ -30,7 +30,7 @@
 
     <div class="post-header">
         <h1 class="title">ElasticSearch</h1>
-        <div class="meta">Updated at: 2019-06-26 14:37:16.88636707 +0800 +08</div>
+        <div class="meta">Updated at: 04 Aug 2019 13:52:42</div>
     </div>
     <div class="markdown">
 
@@ -303,6 +303,148 @@ However, if underlying data has been modified between reading and writing, the u
 
 <p><em>niofs</em>:
 	Stores the shard index on the file system</p>
+
+<h2>Elasticsearch Cluster</h2>
+
+<ul>
+<li><p>Master node: creates, deletes indices. Adds, removes nodes. On cluster state change, master node broadcasts the changes to other nodes in the cluster. Only 1 master node in cluster.</p></li>
+
+<li><p>Data node: holds data in shards, performs CRUD, search, aggregations. If 1 data node stops, cluster reorganizes, and continues operation.</p></li>
+
+<li><p>Client node: routes cluster related requests to the master node, data-related requests to the data nodes.</p></li>
+
+<li><p>Tribe node: talk to multiple clusters to perform search and other operations.</p></li>
+
+<li><p>Ingest node: pre-processing documents before actual indexing.</p></li>
+</ul>
+
+<h3>Adding node to cluster</h3>
+
+<p>When starting a node, node pings all nodes in the cluster to find master node. Once master is found, it will ask master to join by sending a join request. Master accepts it as new node of cluster, notify all nodes in cluster about presence of new node.</p>
+
+<p>If joined node is data node, master will reallocate data evenly across nodes.</p>
+
+<h3>Remove node</h3>
+
+<p>If we stop a node that is unresponsive in specific amount of time, master node will remove it from cluster and reallocate the data.</p>
+
+<h3>Elasticsearch Basics</h3>
+
+<ol>
+<li><p>Elasticsearch is a search engine (not a datastore)</p></li>
+
+<li><p>Horizontal scaling: we can build a cluster with an infinity of hosts, depending on needs and bottlenecks. Running dataset on alot of small machines better than using a few large hosts.</p></li>
+</ol>
+
+<h3>Hardware</h3>
+
+<ul>
+<li>CPU</li>
+</ul>
+
+<p>CPU is needed for running complex filtered queries, intensive indexing, word analyses. The right CPU can drastically change the performance.</p>
+
+<p>ES breaks the CPU use into threadpools:</p>
+
+<pre><code>1. Generic: for standard operations such as discovery
+
+2. Index: for indexing
+
+3. Get: for get operations
+
+4. Bulk: for bulk operations such as bulk indexing
+
+5. Percolate: for percolation
+</code></pre>
+
+<p>Each pool runs a number of threads, that are allocated to the pools.</p>
+
+<ul>
+<li>Memory</li>
+</ul>
+
+<p>ES runs on Java, Java is garbage collected. Memory divided into 2 parts: Java heap space and everything else. (ES does not rely on Java only). More memory given to the heap, more time Java spends garbage collecting.</p>
+
+<p>CMS runs multiple concurrent threads to scan the heap for objects that can be recycled. &ldquo;Stop the world&rdquo;</p>
+
+<p>Java 8 brings a brand new garbage collector called Garbage First designed for heaps greater than 4GB. G1 uses background threads to divide the heap into regions, and scans the regions that contai the most garbage objects first.</p>
+
+<p>For operational reasons, this is good. However, the new JVM might lead to data corruption.</p>
+
+<p>ES has multiple buffers to perform in memory operations, as well as chache to store query results.</p>
+
+<pre><code>1. Indexing buffer: buffer data during indexing
+
+2. Buffer pools
+</code></pre>
+
+<p>More memory better outside heap. Off heap memory manage threads and for filesystem to cache data.</p>
+
+<p>File system storage affects performance. NIO FS and MMAPFS. NIOFS lets the kernel manage the file system cache instead of relying on the rboken, oom generator mmapfs.</p>
+
+<p>You can also commit the exact amount of memory I want ot allocate the heap at startup. Prevents the node from swapping when trying to allocate memory.</p>
+
+<ul>
+<li>Network</li>
+</ul>
+
+<p>ES performs alot of network consuming operations from transferring data during queries to reallocating shards.</p>
+
+<p>ES generally has low network related settings, and we should consider raising the bar.</p>
+
+<ul>
+<li>Sharding</li>
+</ul>
+
+<p>Shards are allocated logical parts that can be allocated on all the cluster data nodes. Sharding defined when index created. Only way to change number of shards is to delete indices, create them, reindex. Resize ES in production.</p>
+
+<p>Don&rsquo;t create more shards than needed, especially if ES routing parameter is used. There will be alot of empty shards.</p>
+
+<p>Alot of shards on huge indices is good for large cluster (20 data nodes or more). Multiple shards allow for better allocation. Small shares make cluster recovery faster when losing a data node or shutting down cluster.</p>
+
+<h3>ElasticSearch cross cluster replication</h3>
+
+<p>Replication</p>
+
+<p>Replication managed at index level, performed at shard level. Follow index is configured to have identical number of shards as leader index.</p>
+
+<h3>Remote Clusters</h3>
+
+<p>Remote clusters enable unidirectional connections to remote cluster. Configuring remote cluster, connecting only to a limited number of nodes. Each remote clsuter referenced by aa name and a list of seed nodes. When remote cluster registered, clsuter state is retrieved, up to 3 gateway nodes are selected to be connected as part of remote cluster requests. All</p>
+
+<h2>Requests</h2>
+
+<p>Requests have two phases:</p>
+
+<ol>
+<li>Scattering phase</li>
+</ol>
+
+<p>Forwards requests to data nodes that holds the data. Each data node executes the request locally and returns results to the coordinating node</p>
+
+<ol>
+<li>Gathering phase</li>
+</ol>
+
+<p>coordinating node reduces each data node&rsquo;s results to a single global ruleset</p>
+
+<p>coordinating node has a priority queue to sort results globally</p>
+
+<p>sorted by relevant</p>
+
+<h2>Concensus</h2>
+
+<p>Zen discovery module only has two parts:</p>
+
+<p>ping: process to discover each other</p>
+
+<p>unicast: list of hostnames to control which nodes to ping</p>
+
+<p>ES is a P2P systen where all nodes communicates with each other and there is one active master tht controls and updates cluster wide state and operations.</p>
+
+<h2>Translog</h2>
+
+<p>Flush is performed every 30mins, hence its possible to lose commits in buffer. ES gets around that by using a translog, and translog is <code>fsync</code>ed after every operation.</p>
 
 
     </div>

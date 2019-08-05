@@ -30,39 +30,30 @@
 
     <div class="post-header">
         <h1 class="title">Raft</h1>
-        <div class="meta">Updated at: 2019-06-13 11:41:42.39582042 +0800 +08</div>
+        <div class="meta">Updated at: 13 Jun 2019 22:19:49</div>
     </div>
     <div class="markdown">
 
-          cretlivesof.data.com/raft</p>
+          
 
-<p>PAxos is a family of protocols.</p>
-
-<p>Check lamport&rsquo;s website.</p>
-
-<h1>Paxos</h1>
-
-<p>Can be decomposed to relatively simple subproblems.</p>
-
-<ol>
-<li>correctness: under non-byzantine conditions</li>
-<li>available: Any cluster of 5 can tolerate a cluster on 2</li>
-<li>Does not depend on timing</li>
-</ol>
+<ul>
+<li>Raft is a concensus algorithm that is an alternative to Paxos.</li>
+<li>It offers a generic way to distributed a state machine across a cluster of computing systems, ensuring that each node in the cluster agrees upon the same series of state transactions.</li>
+<li>Reliable, Replicated, Redundant, and Fault Tolerant.</li>
+</ul>
 
 <h2>Subproblems</h2>
 
 <ol>
 <li>Leader election</li>
 <li>Log replication</li>
-<li>Safety</li>
 </ol>
 
 <h2>Leader election</h2>
 
 <p>Roles:
 - Leader: onyl one leader
-Candidate: leader candidates in the election process
+- Candidate: leader candidates in the election process
 - Follower: Do not send any request, only accespt heartbeat from laeader, except forwarding requests from client to leader</p>
 
 <h3>Changing of roles</h3>

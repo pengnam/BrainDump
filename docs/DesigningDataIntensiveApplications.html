@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Systems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">DesigningDataIntensiveApplications</h1>
+        <div class="meta">Updated at: 04 Aug 2019 13:52:42</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Storage and Retrieval</h2>
+
+<p>A database needs to do two things
+When we are given the data, we should store the data and when asked for the data, we should return the data.</p>
+
+<p>There are big differences between storage engines optimized for transactional workloads, and those optimized for analytics.</p>
+
+<p>Exploring the distinction:</p>
+
+<ol>
+<li></li>
+</ol>
+
+<h2>Replication</h2>
+
+<ul>
+<li>Keeping a copy of the same data on multiple machines that are connected via a network.</li>
+</ul>
+
+<h3>Reasons</h3>
+
+<ol>
+<li><p>Keep data geographically close to users</p></li>
+
+<li><p>Allow the system to continue working even if some of the parts have failed (to increase availability)</p></li>
+
+<li><p>Scale out the number of machines that can read queries</p></li>
+</ol>
+
+<h4>Algorithms to handle changes</h4>
+
+<p>Maintaining consistency among the shards</p>
+
+<p>Considerations:</p>
+
+<ol>
+<li><p>Synchronous or async replication</p></li>
+
+<li><p>How to handle failed replicas</p></li>
+
+<li><p>Replication lag</p></li>
+</ol>
+
+<h4>Leaders and followers</h4>
+
+<h5>Leader-based replication</h5>
+
+<p>One of the replicas is designated as the leader. When clients want to write to the database, they must send their requests to the leader, which first writes the new data to its local storage.</p>
+
+<p>The other replicas are known as followers. whenever the leader writes new data to its local storage, it also sends the data change to all its followers as part of a replication log / change stream.</p>
+
+<h5>Synchronous versus asynchronous replication</h5>
+
+<ul>
+<li><p>Synchronous replication: leader waits until follower has confirmed that it received a write before reporting success to the user and making it visible to other clients.</p></li>
+
+<li><p>Asynchronous replication: leader sends a replication but does not wait for a response.</p></li>
+</ul>
+
+<p>Synchronocity:</p>
+
+<p>Follower is guaranteed to have an up-to-date copy of data that is consistent withe hte leader</p>
+
+<p>If synchronous follower doesn&rsquo;t response, write cannot be processed.</p>
+
+<p>Hence, proposal of semi-synchrocity.</p>
+
+<h5>Setting up new followers</h5>
+
+<p>Clients are constantly writing to database, and data is always in flux so standard file copy would see different parts of the database at different points in time.</p>
+
+<ol>
+<li><p>Lock database and copy, but it goes against idea of high availability.</p></li>
+
+<li><p>Take consistent snapshot of leader&rsquo;s database at some point of time. Copy snapshot.</p></li>
+</ol>
+
+<h4>Multi-Leader Replication</h4>
+
+<p>One leader, and all writes must go through it.</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://pengnam.github.io">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

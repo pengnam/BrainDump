@@ -10,13 +10,15 @@ import (
 	"text/template"
 	"time"
 
-	"./util"
+	"../util"
 
 	"gopkg.in/russross/blackfriday.v2"
 )
 
 const (
 	thresholdRecentFiles = 20
+	build_path           = "../docs/"
+	timeformat           = "02 Jan 2006 15:04:05"
 )
 
 type Topic struct {
@@ -27,7 +29,7 @@ type Topic struct {
 func parseMarkdown(filePath string, fileName string, topic string) File {
 	title := strings.TrimSuffix(fileName, ".md")
 
-	return File{topic, title, fileName, parseFileContent(filePath + fileName), getLastModified(filePath + fileName).String(), title + ".html"}
+	return File{topic, title, fileName, parseFileContent(filePath + fileName), getLastModified(filePath + fileName).Format(timeformat), title + ".html"}
 }
 
 // parseFile parses markdown into HTML and strips the first h1 tag of the html
@@ -79,7 +81,7 @@ func renderFile(content File) error {
 		return err
 	}
 
-	writer, err := os.Create("../docs/" + content.Title + ".html")
+	writer, err := os.Create(build_path + content.Title + ".html")
 	if err != nil {
 		return err
 	}
@@ -98,7 +100,7 @@ func renderIndex(files []File) error {
 		return err
 	}
 
-	writer, err := os.Create("../docs/index.html")
+	writer, err := os.Create(build_path + "index.html")
 	if err != nil {
 		return err
 	}
@@ -143,7 +145,7 @@ func renderListing(topics []Topic) error {
 		return err
 	}
 
-	writer, err := os.Create("../docs/listing.html")
+	writer, err := os.Create(build_path + "listing.html")
 	if err != nil {
 		return err
 	}
@@ -170,7 +172,3 @@ func main() {
 		panic(err)
 	}
 }
-
-/*
-Create and render index
-*/

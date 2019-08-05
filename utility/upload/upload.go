@@ -7,14 +7,13 @@ import (
 	"os"
 	"strings"
 
-	"./util"
+	"../util"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-// TODO fill these in!
 const (
 	S3_REGION = "ap-southeast-1"
 	S3_BUCKET = "brain-dump"

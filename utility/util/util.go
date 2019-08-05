@@ -12,7 +12,7 @@ func Contains(s []string, e string) bool {
 }
 
 func SearchFolder(folderName string) []string {
-	blackList := []string{".DS_Store", ".git", "utility", "build", ".gitignore"}
+	blackList := []string{".DS_Store", ".git", "utility", "build", ".gitignore", "README.md", "LICENSE"}
 	infos, _ := ioutil.ReadDir(folderName)
 	result := make([]string, 0)
 	for _, ele := range infos {

@@ -28,8 +28,8 @@ type Topic struct {
 
 func parseMarkdown(filePath string, fileName string, topic string) File {
 	title := strings.TrimSuffix(fileName, ".md")
-
-	return File{topic, title, fileName, parseFileContent(filePath + fileName), getLastModified(filePath + fileName).Format(timeformat), title + ".html"}
+	modTime := getLastModified(filePath + fileName)
+	return File{topic, title, fileName, parseFileContent(filePath + fileName), modTime, modTime.Format(timeformat), title + ".html"}
 }
 
 // parseFile parses markdown into HTML and strips the first h1 tag of the html
@@ -62,12 +62,13 @@ func retrieveMarkdowns(folderName string) []string {
 }
 
 type File struct {
-	Topic   string
-	Title   string
-	Name    string
-	Content string
-	Time    string
-	Path    string
+	Topic      string
+	Title      string
+	Name       string
+	Content    string
+	Time       time.Time
+	TimeString string
+	Path       string
 }
 
 func renderFile(content File) error {
@@ -114,7 +115,7 @@ func getTopFiles(topics []Topic) []File {
 		files = append(files, t.Files...)
 	}
 	sort.Slice(files, func(i, j int) bool {
-		return files[i].Time > files[j].Time
+		return files[i].Time.After(files[j].Time)
 	})
 	return files[:thresholdRecentFiles]
 }

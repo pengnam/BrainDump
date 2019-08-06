@@ -19,6 +19,7 @@ const (
 	thresholdRecentFiles = 20
 	build_path           = "../docs/"
 	timeformat           = "02 Jan 2006 15:04:05"
+	shortTimeFormat      = "02 Jan 2006"
 )
 
 type Topic struct {
@@ -29,7 +30,7 @@ type Topic struct {
 func parseMarkdown(filePath string, fileName string, topic string) File {
 	title := strings.TrimSuffix(fileName, ".md")
 	modTime := getLastModified(filePath + fileName)
-	return File{topic, title, fileName, parseFileContent(filePath + fileName), modTime, modTime.Format(timeformat), title + ".html"}
+	return File{topic, title, fileName, parseFileContent(filePath + fileName), modTime, modTime.Format(timeformat), modTime.Format(shortTimeFormat), title + ".html"}
 }
 
 // parseFile parses markdown into HTML and strips the first h1 tag of the html
@@ -62,19 +63,23 @@ func retrieveMarkdowns(folderName string) []string {
 }
 
 type File struct {
-	Topic      string
-	Title      string
-	Name       string
-	Content    string
-	Time       time.Time
-	TimeString string
-	Path       string
+	Topic           string
+	Title           string
+	Name            string
+	Content         string
+	Time            time.Time
+	TimeString      string
+	ShortTimeString string
+	Path            string
 }
 
 func renderFile(content File) error {
 	key := "file"
+	thisBuildPath := build_path
 	if content.Topic == "Writings" {
 		key = "writingsfile"
+		thisBuildPath = build_path + "writings/"
+
 	}
 	fileTmpl := template.New(key)
 	tmpl, err := ioutil.ReadFile("templates/" + key + ".tmpl")
@@ -86,7 +91,7 @@ func renderFile(content File) error {
 		return err
 	}
 
-	writer, err := os.Create(build_path + content.Title + ".html")
+	writer, err := os.Create(thisBuildPath + content.Title + ".html")
 	if err != nil {
 		return err
 	}
@@ -171,7 +176,7 @@ func renderWritingIndex() error {
 		return err
 	}
 
-	writer, err := os.Create(build_path + "writing_index.html")
+	writer, err := os.Create(build_path + "writings/index.html")
 	if err != nil {
 		return err
 	}

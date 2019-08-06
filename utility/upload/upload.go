@@ -32,9 +32,9 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(Value)
-	for _, file := range util.SearchFolder("../build") {
+	for _, file := range util.SearchFolder("../docs") {
 		// Upload
-		err = AddFileToS3(s, "../build/"+file, file)
+		err = AddFileToS3(s, "../docs/"+file, file)
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -1,6 +1,9 @@
 package util
 
-import "io/ioutil"
+import (
+	"fmt"
+	"io/ioutil"
+)
 
 func Contains(s []string, e string) bool {
 	for _, a := range s {
@@ -20,5 +23,7 @@ func SearchFolder(folderName string) []string {
 			result = append(result, ele.Name())
 		}
 	}
+	fmt.Println(folderName)
+	fmt.Println(result)
 	return result
 }

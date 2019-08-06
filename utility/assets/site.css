@@ -284,7 +284,7 @@ ul {
 
 .listing-info {
     display: inline-block;
-    width: 40%;
+    width: 30%;
 }
 
 @media (max-width: 767px) {

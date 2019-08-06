@@ -72,8 +72,12 @@ type File struct {
 }
 
 func renderFile(content File) error {
-	fileTmpl := template.New("file")
-	tmpl, err := ioutil.ReadFile("templates/file.tmpl")
+	key := "file"
+	if content.Topic == "Writings" {
+		key = "writingsfile"
+	}
+	fileTmpl := template.New(key)
+	tmpl, err := ioutil.ReadFile("templates/" + key + ".tmpl")
 	if err != nil {
 		return err
 	}
@@ -154,10 +158,33 @@ func renderListing(topics []Topic) error {
 	return nil
 }
 
+func renderWritingIndex() error {
+	writingFiles := parseFilesInTopic("Writings").Files
+
+	writingindexTmpl := template.New("writingindex")
+	tmpl, err := ioutil.ReadFile("templates/writingsindex.tmpl")
+	if err != nil {
+		return err
+	}
+	_, err = writingindexTmpl.Parse(string(tmpl))
+	if err != nil {
+		return err
+	}
+
+	writer, err := os.Create(build_path + "writing_index.html")
+	if err != nil {
+		return err
+	}
+
+	writingindexTmpl.Execute(writer, writingFiles)
+	return nil
+}
+
 func main() {
 	fmt.Println("Testing")
 
 	folders := util.SearchFolder("../")
+	fmt.Println(folders)
 	topics := []Topic{}
 	for _, folder := range folders {
 		fmt.Println(folder)
@@ -169,6 +196,11 @@ func main() {
 		panic(err)
 	}
 	err = renderListing(topics)
+	if err != nil {
+		panic(err)
+	}
+
+	err = renderWritingIndex()
 	if err != nil {
 		panic(err)
 	}

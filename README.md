@@ -10,10 +10,13 @@ http://brain-dump.s3-website-ap-southeast-1.amazonaws.com/listing.html
 
 
 ## TODO
+
+- Write metadata
+
 - Pygmetize data
 
 - Shift scripts to server to regularly pull and update site. 
 
 - Validate markdown
 
-- Domain name/routing
+- Give website title

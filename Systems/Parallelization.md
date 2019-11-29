@@ -93,3 +93,68 @@ There are two types of multitasking.
 - Exploits data parallelism
 
 3. Multiple Instruction Single Data
+
+̨
+
+## Parallel Programming Pattern
+
+### Parallelism Concepts
+
+1. Data Parallelism
+
+Same operation applied to different elements. *Operations are independent*
+
+Partition the data to solve problem.
+
+Exploited by SIMD computers extensively. (Also SPMD).
+
+
+
+2. Task Parallelism
+
+Partition the task to solve the problem.
+
+Analysed using a *task dependence graph*. Form direct acyclic graph, which represents the control depdendency between tasks.
+
+Analysed using:
+
+- Critical path length: fastest completion time
+
+- Degree of concurrency = Total work/ critical path length/
+
+### Parallelism Models
+
+1. Fork-Join
+
+Task T creates a number of child tasks. Tasks then work in parallel to excecute the program. After that, a join is used.
+
+
+2. Parabegin-Parend
+
+Specifies function call to be executed.
+
+3. SPMD&SIMD
+
+Same program executed on different processors but operate on different data. Single instructions executed synchronously by the different threads on different data.
+
+4. Master-Slave (Worker)
+
+Master assigns tasks to slaves.
+
+5. Client-Server
+
+MPMD model.
+
+Server computes requests from multiple client tasks concurrently.
+
+6. Pipelining
+
+Passing data between components of a pipeline.
+
+7. Task Pool
+
+Data structure that threads can access to retrieve tasks for execution.
+
+8. Producer Consumer
+
+Producer produces data into a common buffer which are then consumed by the consumers.

@@ -29,3 +29,17 @@ Use of product types is similar to the use of strcuts. But the use of product ty
 Sum types allow similarity between types without the same bloated code.
 
 In Haskell, Product types include tuples and records. Sum types includes ordinals and general data types.
+
+
+### Strong and weak typing
+Actually typically relates to *type safety*, *memory safety*. 
+
+Most languages are strongly typed (even Python with duck typing)
+
+
+Strongly typed languages has stricter rules during compile time, while implies that errors and exceptions are likely to happen during compilation. 
+
+Weakly typed languages might expose pointers and allow operations on them.
+Weakly typed langauges allow for type coercion. 
+
+### 

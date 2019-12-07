@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Systems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Databases</h1>
+        <div class="meta">Updated at: 25 Sep 2019 03:40:02</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Introduction</h2>
+
+<p><em>Database</em> is a collection of structured data. Captures an abstract
+representation of the domain of an application.</p>
+
+<p>Organised as <em>records</em> in <em>tables/relations</em>, and there are relationships between <em>records</em>.
+Each <em>relation</em> has a set of <em>attributes</em>, where each attribute has a type.</p>
+
+<p>Schema is a <em>structural</em> description of relations in a database.</p>
+
+<h2>Background</h2>
+
+<p>Relational model was proposed in 1970 by Ted Codd. Database abstraction
+to avoid maintenance.</p>
+
+<ul>
+<li>Store database in simple data structures</li>
+<li>Save queries in a high level language</li>
+</ul>
+
+<h2>Relational Model</h2>
+
+<ul>
+<li><p>structure: definition of relations and concepts</p></li>
+
+<li><p>integrity: ensure that contents satisfy constraints</p></li>
+
+<li><p>manipulation: access and monitor contents</p></li>
+</ul>
+
+<p>Note: Based on bags (duplicates) and not sets (no duplicates)</p>
+
+<h2>Fundamental Concepts</h2>
+
+<ol>
+<li><p>Data representation</p>
+
+<ul>
+<li><p>Data Model: set of constructs to describe organisation of the data
+(i.e. tables, graphs, triples, relational, key-value)</p></li>
+
+<li><p>Conceptual Schema: description of particular collection of data using given
+data model. (i.e. schema)</p>
+
+<ul>
+<li>Physical Schema: Physical organisation of the data (i.e. on the disk itself)</li>
+</ul></li>
+</ul></li>
+
+<li><p>Declarative Querying and Querying Processing</p>
+
+<ul>
+<li><p>Data Independence: separating what from how</p></li>
+
+<li><p>Data Definition Language vs Data Manipulation Language</p></li>
+</ul></li>
+
+<li><p>Transactions</p>
+
+<ul>
+<li><p>Grouping atomic transactions</p></li>
+
+<li><p>Moving between consistent states</p></li>
+
+<li><p>Isolates from parallel execution of other actions</p></li>
+</ul></li>
+</ol>
+
+<h2>Relational Algebra</h2>
+
+<p>Queries operate on relations to produce relations.</p>
+
+<p>Operators:</p>
+
+<ol>
+<li>Select Operators</li>
+</ol>
+
+<p>Picks specific rows (by expressing constraints)</p>
+
+<ol>
+<li>Project Operator</li>
+</ol>
+
+<p>Picks specific columns (by specific columns)</p>
+
+<ol>
+<li>Compose Operators</li>
+</ol>
+
+<p>Compose the rows and columns</p>
+
+<p>Set Operators</p>
+
+<ol>
+<li>Union Operators</li>
+</ol>
+
+<p>Combines relations horizontally by using a cross product.
+The tuples need to have the same attributes.</p>
+
+<ol>
+<li>Difference Operators</li>
+</ol>
+
+<p>Finds difference between sets. The tuples have to have the same attributes.</p>
+
+<ol>
+<li>Intersection</li>
+</ol>
+
+<p>Doesn&rsquo;t add any expressive power to the language as it can be expressed with two difference operators. The tuples have to have the same attribute.</p>
+
+<ol>
+<li>Product (Cross Join)</li>
+</ol>
+
+<p>Generates a relation that has all possible combinations of tuples from the input relations.</p>
+
+<ol>
+<li>Join</li>
+</ol>
+
+<p>Generates a relation that contains all tuples that are combinations of two tuples with a common attribute.</p>
+
+<h2>SQL</h2>
+
+<ol>
+<li>Aggregations</li>
+</ol>
+
+<p>Returns a single value from a bag of tuples</p>
+
+<p>(i.e. AVG, MIN, MAX, SUM, COUNT)</p>
+
+<ol>
+<li>Window Functions</li>
+</ol>
+
+<p>Performs a calculation across a set of tuples related to a single row</p>
+
+<p>(i.e. OVER(PARTITION BY cid))
+(i.e. RANK() OVER (PARTITION BY .. ORDER BY grade ASV))</p>
+
+<ol>
+<li></li>
+</ol>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://seanngpengnam.com">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

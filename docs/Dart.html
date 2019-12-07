@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Languages</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Dart</h1>
+        <div class="meta">Updated at: 25 Sep 2019 03:39:41</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Important Concepts</h2>
+
+<ol>
+<li><p>Everything that is placed in a variable is <em>an object</em>, and every object is an instance of a <em>class</em>.</p></li>
+
+<li><p>Dart is <em>strongly typed</em>, and has <em>type inference</em>.</p></li>
+</ol>
+
+<h2>Dependency management</h2>
+
+<p>Dependencies are managed by <em>pub</em></p>
+
+<p>Dart uses <em>packages</em> to manage shared software such as <em>libraries</em> and <em>tools</em>.</p>
+
+<p>Pub creates a <em>.packages</em> file that maps each package name that app depends on to corresponding package in system cache.</p>
+
+<h3>Handling dependencies</h3>
+
+<ol>
+<li>Create a pubspec (a file named pubspec.yaml that lists package dependencies and includes other metadata, such as a name for your package).</li>
+<li>Use pub to get your package’s dependencies.</li>
+<li>If your Dart code depends on a library in the package, import the library.Dependencies are managed by <em>pub</em>. o</li>
+</ol>
+
+<h3>About Modules</h3>
+
+<h4>io module</h4>
+
+<p>Most methods in the IO module run asynchronously.</p>
+
+<h4>async module</h4>
+
+<p><strong>Key classes: Future, Stream</strong></p>
+
+<p><em>Future</em> represents computation that is yet available, Future returns the value opf computation when it completes sometime in the future. Futures are often used for potentially lengthy computations.</p>
+
+<p><em>Stream</em> provides an asynchronous sequence of data.</p>
+
+<p>Stream.listen: registers callback function that runs each time more data is available.</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://seanngpengnam.com">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

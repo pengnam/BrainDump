@@ -30,16 +30,33 @@ type Topic struct {
 func parseMarkdown(filePath string, fileName string, topic string) File {
 	title := strings.TrimSuffix(fileName, ".md")
 	modTime := getLastModified(filePath + fileName)
-	return File{topic, title, fileName, parseFileContent(filePath + fileName), modTime, modTime.Format(timeformat), modTime.Format(shortTimeFormat), title + ".html"}
+	details, fileContent := parseFileContent(filePath + fileName)
+	fmt.Println(details)
+	return File{topic, title, details, fileName, fileContent, modTime, modTime.Format(timeformat), modTime.Format(shortTimeFormat), title + ".html"}
 }
 
 // parseFile parses markdown into HTML and strips the first h1 tag of the html
-func parseFileContent(file string) string {
+func parseFileContent(file string) (map[string]string, string) {
 	bytes, _ := ioutil.ReadFile(file)
-	re := regexp.MustCompile("<h1>(.*)</h1>")
+	// Header consists of an optional details field and a <h1> tag. The details
+	// field is returned in a capture group.
+	re := regexp.MustCompile(`^(?:~{3}\s(.*)\s~{3})?\s*(?:<h1>.*</h1>)?`)
 	result := blackfriday.Run(bytes)
-	header := re.Find(result)
-	return string(result[len(header):])
+	matches := re.FindAllSubmatch(result, -1)
+	header := matches[0][0]
+	detailsRaw := matches[0][1]
+
+	return parseDetails(detailsRaw), string(result[len(header):])
+}
+
+func parseDetails(detailsRaw []byte) map[string]string {
+	re := regexp.MustCompile(`(?:(.*):(.*))\n?`)
+	matches := re.FindAllSubmatch(detailsRaw, -1)
+	result := make(map[string]string)
+	for i := 0; i < len(matches); i++ {
+		result[string(matches[i][1])] = string(matches[i][2])
+	}
+	return result
 }
 
 // getLastModified returns the date that file was last modified
@@ -65,6 +82,7 @@ func retrieveMarkdowns(folderName string) []string {
 type File struct {
 	Topic           string
 	Title           string
+	Details         map[string]string
 	Name            string
 	Content         string
 	Time            time.Time
@@ -186,7 +204,6 @@ func renderWritingIndex() error {
 }
 
 func main() {
-	fmt.Println("Testing")
 
 	folders := util.SearchFolder("../")
 	fmt.Println(folders)

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Systems</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Parallelization</h1>
+        <div class="meta">Updated at: 18 Sep 2019 01:37:37</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Background</h2>
+
+<p><img src="assets/Parallelization-721166aa.png" alt="" /></p>
+
+<p><img src="assets/Parallelization-3738f8df.png" alt="" /></p>
+
+<h2>Parallel Computer Memory Organisation</h2>
+
+<ol>
+<li><p>Distributed-Memory</p></li>
+
+<li><p>Shared-Memory</p>
+
+<ul>
+<li><p>Uniform Memory Access</p></li>
+
+<li><p>Non-Uniform Memory Access</p></li>
+
+<li><p>Cache-only Memory Access</p></li>
+</ul></li>
+
+<li><p>Hybrid (Distributed-Shared Memory)</p></li>
+</ol>
+
+<h2>Processor Performance Gain</h2>
+
+<p>Levels of parallelisation:</p>
+
+<ul>
+<li><p>Bit level</p></li>
+
+<li><p>Instruction level</p></li>
+
+<li><p>Thread level</p></li>
+
+<li><p>Process level</p></li>
+
+<li><p>Processor level</p></li>
+</ul>
+
+<h3>Instruction Level Execution</h3>
+
+<p>Pipelining:</p>
+
+<p>Splitting the instruction into multiple stages. allowing multiple instructions to occupy different stages in the same clock cycle.</p>
+
+<p>Superscalar:</p>
+
+<p>Allowing multiple instruction to pass through the same stage. Scheduling how instructions are executed together.</p>
+
+<h2>Steps</h2>
+
+<ol>
+<li>Decomposition</li>
+</ol>
+
+<p>breaking a task into sub components</p>
+
+<ol>
+<li>Scheduling</li>
+</ol>
+
+<p>of tasks to processes/threads.
+3. Mapping</p>
+
+<p>of processes to cores</p>
+
+<h2>Process</h2>
+
+<p>A process is a program in execution.</p>
+
+<p>A <em>process</em> is broken into several components.</p>
+
+<ol>
+<li><p>Executable program</p></li>
+
+<li><p>Global data</p></li>
+</ol>
+
+<p>Process are abstraction that let you exploit multiple cores/parallel processes.</p>
+
+<p>Processes were initially created to allow for multitasking.</p>
+
+<p>There are two types of multitasking.</p>
+
+<ol>
+<li>Time slicing of execution</li>
+<li>Parallel execution on multiple resources.</li>
+</ol>
+
+<h2>Parallel Architecture Taxonomy</h2>
+
+<ol>
+<li>Single Instruction Single Data (SISD)</li>
+</ol>
+
+<ul>
+<li>A single instruction stream is executed.</li>
+<li>Each instruction work on single data</li>
+<li>Most uniprocessors fall into this category.</li>
+</ul>
+
+<ol>
+<li>Single Instruction Multiple Data (SIMD)</li>
+</ol>
+
+<ul>
+<li>Single stream of instructions</li>
+<li>Each instruction works on multiple data</li>
+<li>Exploits data parallelism</li>
+</ul>
+
+<ol>
+<li>Multiple Instruction Single Data</li>
+</ol>
+
+<p>̨</p>
+
+<h2>Parallel Programming Pattern</h2>
+
+<h3>Parallelism Concepts</h3>
+
+<ol>
+<li>Data Parallelism</li>
+</ol>
+
+<p>Same operation applied to different elements. <em>Operations are independent</em></p>
+
+<p>Partition the data to solve problem.</p>
+
+<p>Exploited by SIMD computers extensively. (Also SPMD).</p>
+
+<ol>
+<li>Task Parallelism</li>
+</ol>
+
+<p>Partition the task to solve the problem.</p>
+
+<p>Analysed using a <em>task dependence graph</em>. Form direct acyclic graph, which represents the control depdendency between tasks.</p>
+
+<p>Analysed using:</p>
+
+<ul>
+<li><p>Critical path length: fastest completion time</p></li>
+
+<li><p>Degree of concurrency = Total work/ critical path length/</p></li>
+</ul>
+
+<h3>Parallelism Models</h3>
+
+<ol>
+<li>Fork-Join</li>
+</ol>
+
+<p>Task T creates a number of child tasks. Tasks then work in parallel to excecute the program. After that, a join is used.</p>
+
+<ol>
+<li>Parabegin-Parend</li>
+</ol>
+
+<p>Specifies function call to be executed.</p>
+
+<ol>
+<li>SPMD&amp;SIMD</li>
+</ol>
+
+<p>Same program executed on different processors but operate on different data. Single instructions executed synchronously by the different threads on different data.</p>
+
+<ol>
+<li>Master-Slave (Worker)</li>
+</ol>
+
+<p>Master assigns tasks to slaves.</p>
+
+<ol>
+<li>Client-Server</li>
+</ol>
+
+<p>MPMD model.</p>
+
+<p>Server computes requests from multiple client tasks concurrently.</p>
+
+<ol>
+<li>Pipelining</li>
+</ol>
+
+<p>Passing data between components of a pipeline.</p>
+
+<ol>
+<li>Task Pool</li>
+</ol>
+
+<p>Data structure that threads can access to retrieve tasks for execution.</p>
+
+<ol>
+<li>Producer Consumer</li>
+</ol>
+
+<p>Producer produces data into a common buffer which are then consumed by the consumers.</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://seanngpengnam.com">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Languages</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">Haskell</h1>
+        <div class="meta">Updated at: 16 Sep 2019 08:52:49</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<p>Exerpts from &ldquo;Real World Haskell&rdquo;.</p>
+
+<h2>Features</h2>
+
+<h3>Characteristics</h3>
+
+<ol>
+<li>Strongly typed</li>
+</ol>
+
+<p>An expression that obeys language type rules is &ldquo;well typed&rdquo;, an expression that disobeys is &ldquo;ill typed&rdquo; and will cause a &ldquo;type error&rdquo;.</p>
+
+<p>Haskell&rsquo;s strong typing will not automatically coerce values from one type to another.</p>
+
+<p>(Strong type means to have more typing rules. An example is coercsion tends to imply weak typing)</p>
+
+<ol>
+<li>Static typed</li>
+</ol>
+
+<p>Type is know at compile time.</p>
+
+<p>This is in contrast to <em>duck</em> typing. However, Haskell&rsquo;s <em>typeclasses</em> provides the benefit of dynamic typing in a safe and convenient form.</p>
+
+<ol>
+<li>Type inference</li>
+</ol>
+
+<p>Compiler can deduce type of almost all expressions. Type need not be explicitly declared.</p>
+
+<h3>Aspects of language</h3>
+
+<ol>
+<li>Expression orientated</li>
+</ol>
+
+<p>This means that there is a distinction between an if <em>expression</em> and if <em>statement</em>. Expressions have to evaluate to a value, hence all if statements in haskell needs an <em>else</em> clause.</p>
+
+<h2>Functions</h2>
+
+<h3>Useful default functions</h3>
+
+<p><em>take, drop, head, tail, fst</em></p>
+
+<h3>Variables</h3>
+
+<p>Once variables are bound to a particular expression, its value does not change.
+We can always use variable instead of writing out the expression.</p>
+
+<h3>Lazy Evaluation</h3>
+
+<p>Strict evaluation: arguments to a function evaluated before the function is applied</p>
+
+<p>Haskell uses non-strict evaluation.</p>
+
+<p>Non-strict evaluation means that a <em>thunk</em> (something like a promise) is created. Only when the value is needed then the value is evaluated.</p>
+
+<h3>Function Types and Purity</h3>
+
+<p><em>side effect</em>: introduces a dependency between the global state of the system and behaviour of a funciton.</p>
+
+<p>In haskell code, we should separate <em>pure</em> functions from <em>impure</em> functions.</p>
+
+<h3>Data Types</h3>
+
+<p>Construct new data types using <em>data</em> keyword.</p>
+
+<p><em>Currying</em> is partial function application that takes only one argument.</p>
+
+<h3>Defining new data type</h3>
+
+<pre><code>data DataType = Book Int String [String]
+                  deriving (Show)
+</code></pre>
+
+<p>algebraic data types can have more than 1 value constructor.</p>
+
+<p>data Bool = False | True</p>
+
+<h3>Partial functions vs Total Functions</h3>
+
+<p>Total functions are functions that return valid results over their entire input domains.</p>
+
+<h3>Guards vs if-else vs Case</h3>
+
+<p>Case is used when there are <em>multiple code paths</em> and every code path is guided by the structure of the value. (i.e. Pattern matching)</p>
+
+<p>Guards make decisions based on the <em>value</em>.</p>
+
+<p><a href="https://stackoverflow.com/questions/9345589/guards-vs-if-then-else-vs-cases-in-haskell">https://stackoverflow.com/questions/9345589/guards-vs-if-then-else-vs-cases-in-haskell</a></p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://seanngpengnam.com">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

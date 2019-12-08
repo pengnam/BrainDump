@@ -32,10 +32,9 @@
         <div class="posts">
         {{range .}}
         <div class = "post">
-            <div class="meta">{{ .TimeString }}</div>
             <a class="title" href="{{ .Path }}">{{.Title}}</a> | {{.Topic}}
             <span class="description">
-
+                {{.ShortTimeString }}
             </span>
         </div>
         <br>

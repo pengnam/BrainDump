@@ -2,11 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>All Posts</title>
     <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
-    <!--
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
-    -->
     <link rel="stylesheet" type="text/css" media="screen" href="site.css">
   </head>
 
@@ -36,11 +33,7 @@
         {{range .Files}}
 
         <div class = "post">
-            <div class="meta">{{ .ShortTimeString }}</div>
-            <a class="title" href="{{ .Path }}">{{.Title}}</a> 
-            <span class="description">
-
-            </span>
+            <a class="title" href="{{ .Path }}">{{.Title}}</a> <span class="description">{{ .ShortTimeString }}</a>
         </div>
         {{end}}
         {{end}}

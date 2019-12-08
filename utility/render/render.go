@@ -204,7 +204,6 @@ func renderWritingIndex() error {
 }
 
 func main() {
-
 	folders := util.SearchFolder("../")
 	fmt.Println(folders)
 	topics := []Topic{}

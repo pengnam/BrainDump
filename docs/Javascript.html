@@ -15,7 +15,7 @@
       <div class="header">
           <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
           <div class="site-description">
-              <h2>WebProgramming</h2>
+              <h2>Languages</h2>
           </div>
           <nav class="nav">
               <ul class="flat">
@@ -30,42 +30,44 @@
 
     <div class="post-header">
         <h1 class="title">Javascript</h1>
-        <div class="meta">Updated at: 10 Feb 2019 23:13:04</div>
+        <div class="meta">Updated at: 29 Nov 2019 20:38:23</div>
     </div>
     <div class="markdown">
 
           
 
-<h2>Understand this</h2>
+<p>Content was largely take from &ldquo;You don&rsquo;t know JS&rdquo;.</p>
 
-<h3>Credits</h3>
+<h2>Pillars</h2>
 
-<p><a href="https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/">https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/</a></p>
+<h3>Scope and Closure</h3>
 
-<h3>Core Primitives</h3>
+<p>Organization of variables into units of scope is one of the most foundational characteristics of any language.</p>
 
-<p>Core primitive is a functions call method. <br>
-The first argument is the thisValue of the method,</p>
+<ul>
+<li>Lexically scoped variables (Static, deduced at compile time)</li>
+</ul>
 
-<pre><code>function hello(thing) {
-    console.log(this + &quot;says&quot; + thing);
-}
+<p>The scope unit boundaries is determined at the time the program is parsed. Author time descision.
+Variables at that level of scope nesting are accessible, variables outside are not.</p>
 
-hello.call(&quot;Sean&quot;, &quot;How cool is this not&quot;)
-</code></pre>
+<ul>
+<li><p><em>Hoisting</em>: All variables declared anywhere in scope are treated as they are declared at the beginning og the scope.</p></li>
 
-<p>The short version is: a function invocation like <code>fn(...args)</code> is the same as <code>fn.call(window [ES5-strict: undefined], ...args)</code>.</p>
+<li><p><strong>var</strong>: Declared variables are function scoped even if they appear inside a block.</p></li>
+</ul>
 
-<p>**
-A function does not necessarily have a consistent notion of <code>this</code>.
-**</p>
+<h3>Prototypes</h3>
 
-<pre><code>var bind = function(func, thisValue) {
-  return function() {
-    return func.apply(thisValue, arguments);
-  }
-}
-</code></pre>
+<p>Prototypal inheritance was initially used to implement the class design pattern.</p>
+
+<p>However, after <code>class</code> came in ES6, language doubled down on its inclination to OO.</p>
+
+<p>But behaviour delegation is still important for organising behaviour and data in the program.</p>
+
+<h3>Types and Coercision</h3>
+
+<p>Not just solved with type aware tooling.</p>
 
 
     </div>

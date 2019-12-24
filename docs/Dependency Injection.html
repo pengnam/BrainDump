@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>DependencyInjection</title>
+    <title>Dependency Injection</title>
     <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
     <!--
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
@@ -13,7 +13,6 @@
   <body>
       <div class="container wrapper post">
       <div class="header">
-          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
           <div class="site-description">
               <h2>Software Engineering</h2>
           </div>
@@ -28,8 +27,8 @@
 
 
     <div class="post-header">
-        <h1 class="title">DependencyInjection</h1>
-        <div class="meta">Updated at: 24 Dec 2019 08:55:39</div>
+        <h1 class="title">Dependency Injection</h1>
+        <div class="meta">Updated at: 24 Dec 2019 11:42:00</div>
     </div>
     <div class="markdown">
 
@@ -64,17 +63,32 @@ Register constructor (and relevant parameters) into the provider.</p>
 
 <p>This, however, creates a dependency between the service locator and the object.</p>
 
-<h2>Service Locator vs Dependency Injection</h2>
-
-<h3>Benefits:</h3>
-
-<p>Both allow fundamental decoupling that&rsquo;s missing in the naive example.</p>
-
 <h3>Notes:</h3>
 
 <p>There seems to be different ways of registering a provider.</p>
 
 <p>One way would be to register with a configuration file, another one is by calling methods. I believe both methods are similar.</p>
+
+<h2>Service Locator vs Dependency Injection</h2>
+
+<h3>Similarties:</h3>
+
+<p>Both allow fundamental decoupling that&rsquo;s missing in the naive example.</p>
+
+<p>Both gives inversion of control, but it comes at a price. It is potentially hard to understand and it leads to potential problems.</p>
+
+<p>About equally difficult to test. Dependency injection will be easier with IDE support to search up references.</p>
+
+<h3>Differences:</h3>
+
+<pre><code>So the primary issue is for people who are writing code that expects to be used in applications outside of the control of the writer. In these cases even a minimal assumption about a Service Locator is a problem.
+</code></pre>
+
+<h2>Constructor vs Setter Injection</h2>
+
+<p>The choice between setter and constructor injection is interesting as it mirrors a more general issue with object-oriented programming - should you fill fields in a constructor or with setters.</p>
+
+<p>Martin Fowler&rsquo;s principle is that as much as possible create valid objects at run time. Constructors with parameters give a clear statement of what it means to create a valid object.</p>
 
 
     </div>

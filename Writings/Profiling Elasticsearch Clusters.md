@@ -12,15 +12,27 @@ This project does not include ideas of adjusting heap size/file cache size) as f
 
 https://www.elastic.co/blog/a-heap-of-trouble is the best guide for memory size tuning.
 
+## Lifecycle of an ES search request
+TODO
+
 
 ## Defining Performance
-The goal of cluster design is to reconfigure the cluster to improve its performance. We decided that the following metrics are good indicators of performance because they are easier to measure, and are generally agreed upon.
-We can separate performance to CPU based performance and Off-CPU based performance. The fact is that a gain in one type of performance will lead to a decline in the other, hence the goal would be to determine the sweet spot that gives a balance of both.
+The goal of cluster profiling is get more information about the steps that would help improve its performance.
+The first step is to determine and to agree on a set of metrics to optimise the cluster for. These metrics are limited by the elasticsearch API, and by metrics that we can determine from the cluster itself.
 
-The performance based metrics that a cluster are evaluated on are [in brackets are the type of performance that the metric measures]:
-CPU % on each node (< 80% is ideal) [CPU based performance]
+We can separate performance to CPU based performance and Off-CPU based performance.
+
+From the analysis in previous section, we can agree that a gain in one type of performance will lead to a decline in the other hence the goal would be to determine the sweet spot that gives a balance of both.
+
+We came up with this tentative list of metrics for each category:
+
+**CPU Based Performance**
+1. CPU % of ES Cluster node(< 80% is ideal) 
 A higher CPU% is an indication of higher unreliability.
-Search rate per node (lower is generally better)[Off-CPU based performance]
+
+**Off-CPU Based Performance**
+1. Search rate per node (lower is generally better)
+This metric refers to the search rate on an individual node.
 Here, off-CPU performance strongly correlates with the search rate of the cluster. Minimizing search rate per node generally decreases off-CPU time and also decreases time spent “scattering” and “gathering”.
 Search latency of requests (lower the better) [Overall performance]
 A lower latency is better.
@@ -32,7 +44,7 @@ Note that most of these metrics have similar contributing factors. (For example,
 
 These metrics should be evaluated on two types of requests: search requests and indexing requests. Search requests are more important than indexing requests as they involve user experience directly.
 Profiling
-The first step would be to profile your requests. By understanding the type and nature of the requests, we can understand the general load profile. An example of the importance of this is the general increase in QPS limit from 17000 to 21000 by utilizing the _routing features of cross-cluster.
+The first step would be to profile your requests. By understanding the type and nature of the requests, we can understand the general load profile. An example of the importance of this is the general increase in QPS limit from 17000 to 21000 by utilizing the \_routing features of cross-cluster.
 Make sure to get real, actual requests.
 Parameters:
 

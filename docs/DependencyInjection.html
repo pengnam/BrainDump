@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DependencyInjection</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
+    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="site.css">
+  </head>
+
+  <body>
+      <div class="container wrapper post">
+      <div class="header">
+          <h1 class="site-title"><a href="index.html">Brain Dump</a></h1>
+          <div class="site-description">
+              <h2>Software Engineering</h2>
+          </div>
+          <nav class="nav">
+              <ul class="flat">
+                <li> <a href="index.html">Home</a></li>
+                <li> <a href="listing.html">All posts</a></li>
+              </ul>
+          </nav>
+
+    </div>
+
+
+    <div class="post-header">
+        <h1 class="title">DependencyInjection</h1>
+        <div class="meta">Updated at: 24 Dec 2019 08:55:39</div>
+    </div>
+    <div class="markdown">
+
+          
+
+<h2>Overview</h2>
+
+<p>A technique that has one object supplying the dependencies of another object.</p>
+
+<p>Allows for a <em>seperation of concern</em> between the construction and the use of objects.</p>
+
+<p>Allows programs to be loosly coupled.</p>
+
+<h2>Types of Dependency Injection</h2>
+
+<h3>Constructor Injection</h3>
+
+<p>Constructor is used to decide an object&rsquo;s dependencies. Object declares in constructor the objects that it needs.
+Register constructor (and relevant parameters) into the provider.</p>
+
+<h3>Setter Injection</h3>
+
+<p>Defining setter methods in objects that need injection.</p>
+
+<h3>Interface Injection</h3>
+
+<p>An interface can be used to perform the injection through.</p>
+
+<h2>Alternative: Service locator</h2>
+
+<p>Object calls service locator object to find its dependencies.</p>
+
+<p>This, however, creates a dependency between the service locator and the object.</p>
+
+<h2>Service Locator vs Dependency Injection</h2>
+
+<h3>Benefits:</h3>
+
+<p>Both allow fundamental decoupling that&rsquo;s missing in the naive example.</p>
+
+<h3>Notes:</h3>
+
+<p>There seems to be different ways of registering a provider.</p>
+
+<p>One way would be to register with a configuration file, another one is by calling methods. I believe both methods are similar.</p>
+
+
+    </div>
+</div>
+    <div class="footer">
+        by <a href="https://seanngpengnam.com">Sean Ng</a> | <a href="https://github.com/pengnam/BrainDump">source</a>
+  </div>
+  </body>
+</html>

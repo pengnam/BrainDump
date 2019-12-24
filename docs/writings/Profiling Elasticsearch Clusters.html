@@ -18,13 +18,12 @@
                 <li> <a href="index.html">Writings Home</a></li>
               </ul>
           </nav>
-
     </div>
 
 
     <div class="post-header">
         <h1 class="title">Profiling Elasticsearch Clusters</h1>
-        <div class="meta">Updated at: 08 Dec 2019 14:50:09</div>
+        <div class="meta">Updated at: 21 Dec 2019 18:20:24</div>
     </div>
     <div class="markdown">
 
@@ -44,15 +43,28 @@
 
 <p><a href="https://www.elastic.co/blog/a-heap-of-trouble">https://www.elastic.co/blog/a-heap-of-trouble</a> is the best guide for memory size tuning.</p>
 
+<h2>Lifecycle of an ES search request</h2>
+
+<p>TODO</p>
+
 <h2>Defining Performance</h2>
 
-<p>The goal of cluster design is to reconfigure the cluster to improve its performance. We decided that the following metrics are good indicators of performance because they are easier to measure, and are generally agreed upon.
-We can separate performance to CPU based performance and Off-CPU based performance. The fact is that a gain in one type of performance will lead to a decline in the other, hence the goal would be to determine the sweet spot that gives a balance of both.</p>
+<p>The goal of cluster profiling is get more information about the steps that would help improve its performance.
+The first step is to determine and to agree on a set of metrics to optimise the cluster for. These metrics are limited by the elasticsearch API, and by metrics that we can determine from the cluster itself.</p>
 
-<p>The performance based metrics that a cluster are evaluated on are [in brackets are the type of performance that the metric measures]:
-CPU % on each node (&lt; 80% is ideal) [CPU based performance]
-A higher CPU% is an indication of higher unreliability.
-Search rate per node (lower is generally better)[Off-CPU based performance]
+<p>We can separate performance to CPU based performance and Off-CPU based performance.</p>
+
+<p>From the analysis in previous section, we can agree that a gain in one type of performance will lead to a decline in the other hence the goal would be to determine the sweet spot that gives a balance of both.</p>
+
+<p>We came up with this tentative list of metrics for each category:</p>
+
+<p><strong>CPU Based Performance</strong>
+1. CPU % of ES Cluster node(&lt; 80% is ideal)
+A higher CPU% is an indication of higher unreliability.</p>
+
+<p><strong>Off-CPU Based Performance</strong>
+1. Search rate per node (lower is generally better)
+This metric refers to the search rate on an individual node.
 Here, off-CPU performance strongly correlates with the search rate of the cluster. Minimizing search rate per node generally decreases off-CPU time and also decreases time spent “scattering” and “gathering”.
 Search latency of requests (lower the better) [Overall performance]
 A lower latency is better.

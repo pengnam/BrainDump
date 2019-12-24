@@ -4,7 +4,6 @@
 
 body {
     font-family: roboto,sans-serif;
-    font-weight: 300;
 	color: #333;
 	line-height: 1.2;
 	font-size: 16px;
@@ -84,21 +83,6 @@ h1,h2,h3,h4,h5,h6 {
     font-weight: 100
 }
 
-h1 {
-    font-size: 1.75rem
-}
-
-h2 {
-    font-size: 1.5rem
-}
-
-h3 {
-    font-size: 1.2rem
-}
-
-h4 {
-    font-size: 1.0rem
-}
 
 .container {
     max-width: 800px
@@ -278,36 +262,4 @@ ul {
 .listing-info {
     display: inline-block;
     width: 30%;
-}
-
-@media (max-width: 767px) {
-	body {
-		padding: 20px;
-	}
-
-	h1 {
-		font-size: 2rem
-	}
-
-	h2 {
-		font-size: 1.6rem
-	}
-
-	h3 {
-		font-size: 1.2rem
-	}
-
-	h4 {
-		font-size: 1rem
-	}
-
-	.container {
-		margin-top: 10px;
-	}
-}
-
-@media (max-width: 480px) {
-	body {
-		font-size: 14px;
-	}
 }

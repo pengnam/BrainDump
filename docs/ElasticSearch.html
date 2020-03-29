@@ -3,36 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>ElasticSearch</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
-    <!--
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:500,100,300" rel="stylesheet">
-    -->
     <link rel="stylesheet" type="text/css" media="screen" href="site.css">
   </head>
 
   <body>
       <div class="container wrapper post">
       <div class="header">
-          <div class="site-description">
-              <h2>Distributed Systems</h2>
-          </div>
           <nav class="nav">
               <ul class="flat">
-                <li> <a href="index.html">Home</a></li>
-                <li> <a href="listing.html">All posts</a></li>
+                <li> <a href="index.html">Recent</a></li>
+                <li> <a href="listing.html">All</a></li>
               </ul>
           </nav>
-
     </div>
-
-
     <div class="post-header">
         <h1 class="title">ElasticSearch</h1>
-        <div class="meta">Updated at: 03 Aug 2019 22:52:42</div>
+        <div class="meta">Updated at: 04 Aug 2019 14:52:42</div>
     </div>
     <div class="markdown">
-
-          
+        
 
 <p>Elasticsearch is a distributed RESTful search engine.
 - Search engine where each index has a fully configurable number of shards.
@@ -443,7 +432,6 @@ However, if underlying data has been modified between reading and writing, the u
 <h2>Translog</h2>
 
 <p>Flush is performed every 30mins, hence its possible to lose commits in buffer. ES gets around that by using a translog, and translog is <code>fsync</code>ed after every operation.</p>
-
 
     </div>
 </div>

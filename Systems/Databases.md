@@ -28,6 +28,26 @@ to avoid maintenance.
 
 Note: Based on bags (duplicates) and not sets (no duplicates)
 
+## ACID
+
+Set of db transactions to guarantee validity in event of errors/power failures.
+A set of db operations that satisfy the ACID properties is called a transaction.
+
+
+### Atomicity
+
+Each transaction is treated as a single unit, and whether it completely succeeds or fails, the DB is left unchanged. 
+
+### Consistency
+
+Transaction brings from one valid state to another, whetere a valid state means that constraints are satisfied. 
+
+### Isolation
+
+Transactions executed concurrently. Current execution of transaction leaves DB in the same state that would have been optained if it was executed sequentially.
+
+### 
+
 ## Fundamental Concepts
 
 1. Data representation
@@ -45,7 +65,6 @@ Note: Based on bags (duplicates) and not sets (no duplicates)
     - Data Independence: separating what from how
 
     - Data Definition Language vs Data Manipulation Language
-
 
 
 3. Transactions

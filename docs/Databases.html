@@ -18,7 +18,7 @@
     </div>
     <div class="post-header">
         <h1 class="title">Databases</h1>
-        <div class="meta">Updated at: 25 Sep 2019 19:40:02</div>
+        <div class="meta">Updated at: 29 Apr 2020 21:25:03</div>
     </div>
     <div class="markdown">
         
@@ -54,6 +54,23 @@ to avoid maintenance.</p>
 </ul>
 
 <p>Note: Based on bags (duplicates) and not sets (no duplicates)</p>
+
+<h2>ACID</h2>
+
+<p>Set of db transactions to guarantee validity in event of errors/power failures.
+A set of db operations that satisfy the ACID properties is called a transaction.</p>
+
+<h3>Atomicity</h3>
+
+<p>Each transaction is treated as a single unit, and whether it completely succeeds or fails, the DB is left unchanged.</p>
+
+<h3>Consistency</h3>
+
+<p>Transaction brings from one valid state to another, whetere a valid state means that constraints are satisfied.</p>
+
+<h3>Isolation</h3>
+
+<p>Transactions executed concurrently. Current execution of transaction leaves DB in the same state that would have been optained if it was executed sequentially.</p>
 
 <h2>Fundamental Concepts</h2>
 
